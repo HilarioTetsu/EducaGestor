@@ -87,6 +87,7 @@ S es un numero secuencial
 );
 
 CREATE TABLE Administradores (
+/* tabla administradores*/
    admin_id varchar(36)  NOT NULL,
    username varchar(6)  NOT NULL,
    email varchar(255)  NOT NULL,
