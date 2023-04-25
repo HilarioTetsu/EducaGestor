@@ -160,40 +160,64 @@ ALTER TABLE Materia ADD CONSTRAINT FOREIGN KEY (academia_id) REFERENCES Academia
 ALTER TABLE Materia ADD CONSTRAINT FOREIGN KEY (planEstudios_id) REFERENCES PlanEstudios (planEstudios_id);
 
 CREATE TABLE Horario (
-	horario_id TINYINT NOT NULL auto_increment
-	,horario VARCHAR(9) NOT NULL
-	,fecha_creacion DATETIME NOT NULL
-	,usuario_creacion VARCHAR(20) NOT NULL
-	,fecha_modificacion DATETIME NULL
-	,usuario_modificacion VARCHAR(20) NULL
-	,STATUS TINYINT NOT NULL
-	,PRIMARY KEY (horario_id)
+  `horario_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `dia_semana` tinyint(4) NOT NULL,
+  `horario` varchar(9) NOT NULL,
+  `fecha_creacion` datetime NOT NULL,
+  `usuario_creacion` varchar(20) NOT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `usuario_modificacion` varchar(20) DEFAULT NULL,
+  `STATUS` tinyint(4) NOT NULL,
+   PRIMARY KEY (horario_id)
 	);
+    CREATE TABLE clase(
+    clase_id INT NOT NULL AUTO_INCREMENT,
+    materia_id VARCHAR(17) NOT NULL,
+    horario_id tinyint(4) NOT NULL,
+    aula VARCHAR(5),
+    fecha_creacion DATETIME NOT NULL,
+	usuario_creacion VARCHAR(20) NOT NULL,
+	fecha_modificacion DATETIME NULL,
+	usuario_modificacion VARCHAR(20) NULL,
+	STATUS TINYINT NOT NULL,
+    PRIMARY KEY (clase_id),
+    CONSTRAINT FOREIGN KEY (materia_id) REFERENCES Materia (materia_id),
+    CONSTRAINT FOREIGN KEY (horario_id) REFERENCES Horario (horario_id)
+    );
+ 
+ CREATE TABLE asistencia(
+ asistencia_id INT NOT NULL AUTO_INCREMENT,
+ alumno_id VARCHAR(11) NOT NULL,
+ asistencia_status TINYINT NOT NULL,
+ fecha_asistencia DATE NOT NULL,
+ profesor_materia_id INT,
+ fecha_creacion DATETIME NOT NULL,
+ usuario_creacion VARCHAR(20) NOT NULL,
+ fecha_modificacion DATETIME NULL,
+ usuario_modificacion VARCHAR(20) NULL,
+ STATUS TINYINT NOT NULL,
+ PRIMARY KEY (asistencia_id),
+ CONSTRAINT FOREIGN KEY (alumno_id) REFERENCES alumno (alumno_id),
+ CONSTRAINT FOREIGN KEY (profesor_materia_id) REFERENCES Profesor_Materia (profesor_materia_id)
+ );
 
 CREATE TABLE Profesor_Materia (
-	profesor_id VARCHAR(10) NOT NULL
-	,materia_id VARCHAR(17) NOT NULL
-	,horario_id TINYINT NOT NULL
-	,semestre_nombre_id TINYINT NOT NULL
+	profesor_materia_id INT auto_increment 
+	,profesor_id VARCHAR(10) NOT NULL UNIQUE
+	,materia_id VARCHAR(17) NOT NULL UNIQUE
+	,semestre_nombre_id TINYINT NOT NULL UNIQUE
 	,fecha_creacion DATETIME NOT NULL
 	,usuario_creacion VARCHAR(20) NOT NULL
 	,fecha_modificacion DATETIME NULL
 	,usuario_modificacion VARCHAR(20) NULL
 	,STATUS TINYINT NOT NULL
-	,PRIMARY KEY (
-		profesor_id
-		,materia_id
-		,horario_id
-		,semestre_nombre_id
-		)
+	,PRIMARY KEY (profesor_materia_id)
 	);
 
 /*FKS Profesor_Materia*/
 ALTER TABLE Profesor_Materia ADD CONSTRAINT FOREIGN KEY (profesor_id) REFERENCES Profesor (profesor_id);
 
 ALTER TABLE Profesor_Materia ADD CONSTRAINT FOREIGN KEY (materia_id) REFERENCES Materia (materia_id);
-
-ALTER TABLE Profesor_Materia ADD CONSTRAINT FOREIGN KEY (horario_id) REFERENCES Horario (horario_id);
 
 ALTER TABLE Profesor_Materia ADD CONSTRAINT FOREIGN KEY (semestre_nombre_id) REFERENCES Semestre_nombre (semestre_nombre_id);
 
@@ -239,3 +263,31 @@ CREATE TABLE Carrera (
 	,STATUS TINYINT NOT NULL
 	,PRIMARY KEY (carrera_id)
 	);
+    
+CREATE TABLE alumno_materia(
+id INT NOT NULL AUTO_INCREMENT,
+alumno_id VARCHAR(11) NOT NULL,
+profesor_materia_id INT NOT NULL,
+fecha_creacion DATETIME NOT NULL,
+usuario_creacion VARCHAR(20) NOT NULL,
+fecha_modificacion DATETIME NULL,
+usuario_modificacion VARCHAR(20) NULL,
+STATUS TINYINT NOT NULL,
+PRIMARY KEY (id),
+CONSTRAINT FOREIGN KEY (alumno_id) REFERENCES alumno (alumno_id),
+CONSTRAINT FOREIGN KEY (profesor_materia_id) REFERENCES Profesor_Materia (profesor_materia_id)
+);
+
+CREATE TABLE calificacion(
+calif_id INT NOT NULL AUTO_INCREMENT,
+alumno_materia_id INT NOT NULL,
+calif TINYINT NOT NULL,
+unidad TINYINT NOT NULL,
+fecha_creacion DATETIME NOT NULL,
+usuario_creacion VARCHAR(20) NOT NULL,
+fecha_modificacion DATETIME NULL,
+usuario_modificacion VARCHAR(20) NULL,
+STATUS TINYINT NOT NULL,
+PRIMARY KEY (calif_id),
+CONSTRAINT FOREIGN KEY (alumno_materia_id) REFERENCES alumno_materia (id)
+);    
