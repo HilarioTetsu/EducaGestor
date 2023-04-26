@@ -108,7 +108,7 @@ ALTER TABLE Profesor ADD CONSTRAINT FOREIGN KEY (academia_id) REFERENCES Academi
 
 CREATE TABLE Administradores (
 	admin_id VARCHAR(36) NOT NULL
-	,username VARCHAR(6) NOT NULL
+	,username VARCHAR(20) NOT NULL
 	,email VARCHAR(255) NOT NULL
 	,`password` VARCHAR(60) NOT NULL
 	,fecha_creacion DATETIME NOT NULL
