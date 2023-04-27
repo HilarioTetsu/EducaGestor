@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,26 +23,26 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Administrador {
+public class Profesor_Materia {
 
 	@Id
-	@Column(length = 36, name = "admin_id")
-	private String adminId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "profesor_materia_id")
+	private Integer profesorMateriaId;
 	
-	@Column(length = 20,nullable = false)
 	@NotBlank
-	@Size(max = 20)
-	private String username;
+	@Column(name="profesor_id",length=10,unique = true)
+	@Size(max = 10)
+	private String profesorId;
 	
-	@Column(length = 255,nullable=false)
 	@NotBlank
-	@Size(max = 255)
-	private String email;
+	@Column(name="materia_id",length=17,unique = true)
+	@Size(max = 17)
+	private String materiaId;
 	
-	@Column(length = 60,nullable=false)
-	@NotBlank
-	@Size(max = 60)
-	private String password;
+	@NotNull
+	@Column(name = "semestre_nombre_id",unique = true)
+	private Byte semestreNombreId;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")
@@ -64,5 +66,5 @@ public class Administrador {
 	
 	@NotNull
 	private Short status;
-
+	
 }

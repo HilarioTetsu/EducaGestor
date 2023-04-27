@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,52 +19,53 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "administradores")
+@Table(name = "clases")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Administrador {
+public class Clase {
 
 	@Id
-	@Column(length = 36, name = "admin_id")
-	private String adminId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "clase_id")
+	private Integer claseId;
 	
-	@Column(length = 20,nullable = false)
 	@NotBlank
-	@Size(max = 20)
-	private String username;
+	@Column(name = "materia_id",length = 17)
+	@Size(max = 17)
+	private String materiaId;
 	
-	@Column(length = 255,nullable=false)
-	@NotBlank
-	@Size(max = 255)
-	private String email;
+	@NotNull
+	@Column(name = "horario_id")
+	private Byte horarioId;
 	
-	@Column(length = 60,nullable=false)
 	@NotBlank
-	@Size(max = 60)
-	private String password;
+	@Column(name = "aula",length = 5)
+	@Size(max = 5)
+	private String aula;
+	
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")
 	@NotNull
 	private Date fechaCreacion;
-	
+
 	@Column(length = 20,name = "usuario_creacion")
 	@NotBlank
 	@Size(max = 20)
 	private String usuarioCreacion;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull
 	@Column(name = "fecha_modificacion",nullable = true)
 	private Date fechaModificacion;
-	
+
 	@Column(length = 20,nullable = true,name="usuario_modificacion")
 	@NotBlank
 	@Size(max = 20)
 	private String usuarioModificacion;
-	
+
 	@NotNull
 	private Short status;
-
+	
 }

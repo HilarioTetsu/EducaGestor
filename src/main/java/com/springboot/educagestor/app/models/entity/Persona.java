@@ -20,7 +20,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "persona")
+@Table(name = "personas")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -79,10 +79,11 @@ public class Persona {
 	private String genero;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fecha_creacion")
 	@NotNull
 	private Date fechaCreacion;
 	
-	@Column(length = 20)
+	@Column(length = 20,name = "usuario_creacion")
 	@NotBlank
 	@Size(max = 20)
 	private String usuarioCreacion;
@@ -92,7 +93,7 @@ public class Persona {
 	@Column(name = "fecha_modificacion",nullable = true)
 	private Date fechaModificacion;
 	
-	@Column(length = 20,nullable = true)
+	@Column(length = 20,nullable = true,name="usuario_modificacion")
 	@NotBlank
 	@Size(max = 20)
 	private String usuarioModificacion;

@@ -57,7 +57,7 @@ CREATE TABLE Persona (
 CREATE TABLE Alumno (
 	/*LM(Iniciales de los apellidos)0X(Donde X es el id de la carrera)18(Año de ingreso)Y(Donde Y es un numero secuencial)
 Al final quedaria algo asi: LM0518122, este seria el alumno_id*/
-	alumno_id VARCHAR(11) NOT NULL UNIQUE
+	alumno_id VARCHAR(11)  NULL UNIQUE
 	,id_sec INT NOT NULL auto_increment
 	,persona_id VARCHAR(36) NOT NULL
 	,generacion SMALLINT NOT NULL
@@ -100,7 +100,8 @@ S es un numero secuencial
 	,STATUS TINYINT NOT NULL
 	,PRIMARY KEY (id_sec)
 	);
-
+    
+ALTER TABLE Profesor MODIFY COLUMN profesor_id VARCHAR(10) NULL UNIQUE;
 /*FKS Profesor*/
 ALTER TABLE Profesor ADD CONSTRAINT FOREIGN KEY (persona_id) REFERENCES Persona (persona_id);
 
@@ -140,7 +141,7 @@ S= numero secuencial
 Ejemplo: QUI-04-08-42
 */
 	id_sec SMALLINT AUTO_INCREMENT
-	,materia_id VARCHAR(17) NOT NULL UNIQUE
+	,materia_id VARCHAR(17)  NULL UNIQUE
 	,nombre VARCHAR(50) NOT NULL
 	,creditos TINYINT NOT NULL
 	,academia_id TINYINT NOT NULL

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,52 +19,48 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "administradores")
+@Table(name = "carreras")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Administrador {
+public class Carrera {
 
 	@Id
-	@Column(length = 36, name = "admin_id")
-	private String adminId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "carrera_id")
+	private Byte carreraId;
 	
-	@Column(length = 20,nullable = false)
 	@NotBlank
-	@Size(max = 20)
-	private String username;
+	@Column(length = 25)
+	@Size(max = 25)
+	private String descripcion;
 	
-	@Column(length = 255,nullable=false)
 	@NotBlank
-	@Size(max = 255)
-	private String email;
-	
-	@Column(length = 60,nullable=false)
-	@NotBlank
-	@Size(max = 60)
-	private String password;
+	@Column(length = 6,nullable = false)
+	@Size(max = 6)
+	private String acronimo;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")
 	@NotNull
 	private Date fechaCreacion;
-	
+
 	@Column(length = 20,name = "usuario_creacion")
 	@NotBlank
 	@Size(max = 20)
 	private String usuarioCreacion;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull
 	@Column(name = "fecha_modificacion",nullable = true)
 	private Date fechaModificacion;
-	
+
 	@Column(length = 20,nullable = true,name="usuario_modificacion")
 	@NotBlank
 	@Size(max = 20)
 	private String usuarioModificacion;
-	
+
 	@NotNull
 	private Short status;
-
+	
 }

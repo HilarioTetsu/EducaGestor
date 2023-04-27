@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,31 +19,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "administradores")
+@Table(name = "academias")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Administrador {
+public class Academia {
 
 	@Id
-	@Column(length = 36, name = "admin_id")
-	private String adminId;
+	@Column(name = "academia_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Byte academiaId;
 	
-	@Column(length = 20,nullable = false)
+	@Column(length = 50)
 	@NotBlank
-	@Size(max = 20)
-	private String username;
-	
-	@Column(length = 255,nullable=false)
-	@NotBlank
-	@Size(max = 255)
-	private String email;
-	
-	@Column(length = 60,nullable=false)
-	@NotBlank
-	@Size(max = 60)
-	private String password;
-	
+	@Size(max = 50)
+	private String descripcion;
+		
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")
 	@NotNull
@@ -64,5 +57,6 @@ public class Administrador {
 	
 	@NotNull
 	private Short status;
-
+	
+	
 }
