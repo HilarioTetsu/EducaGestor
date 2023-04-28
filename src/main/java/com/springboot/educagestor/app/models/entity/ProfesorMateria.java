@@ -22,71 +22,55 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "alumnos")
+@Table(name = "profesores_materias")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Alumno {
+public class ProfesorMateria {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_sec")
-	private Integer idSec;
-
-	@NotBlank
-	@Column(length = 11, unique = true, name = "alumno_id", nullable = true)
-	@Size(max = 11)
-	private String alumnoId;
-
-	@NotBlank
-	@Column(length = 36, name = "persona_id")
-	@Size(max = 36)
-	private String personaId;
-
-	@NotNull
-	private Short generacion;
-
-	@NotNull
-	@Column(name = "semestre_actual")
-	private Byte semestreActual;
-
-	@NotNull
-	@Column(name = "carrera_id")
-	private Byte carreraId;
-
-	@NotNull
-	@Column(name = "creditos_totales")
-	private Byte creditosTotales;
-
-	@NotNull
-	@Column(name = "plan_estudios_id")
-	private Byte planEstudiosId;
+	@Column(name = "profesor_materia_id")
+	private Integer profesorMateriaId;
 	
+	@NotBlank
+	@Column(name="profesor_id",length=10,unique = true)
+	@Size(max = 10)
+	private String profesorId;
 	
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "alumno")
+	@NotBlank
+	@Column(name="materia_id",length=17,unique = true)
+	@Size(max = 17)
+	private String materiaId;
+	
+	@NotNull
+	@Column(name = "semestre_nombre_id",unique = true)
+	private Byte semestreNombreId;
+	
+	@OneToMany(mappedBy = "profesorMateria",fetch = FetchType.LAZY)
 	private List<AlumnoMateria> listAlumnoMateria;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")
 	@NotNull
 	private Date fechaCreacion;
-
-	@Column(length = 20, name = "usuario_creacion")
+	
+	@Column(length = 20,name = "usuario_creacion")
 	@NotBlank
 	@Size(max = 20)
 	private String usuarioCreacion;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull
-	@Column(name = "fecha_modificacion", nullable = true)
+	@Column(name = "fecha_modificacion",nullable = true)
 	private Date fechaModificacion;
-
-	@Column(length = 20, nullable = true, name = "usuario_modificacion")
+	
+	@Column(length = 20,nullable = true,name="usuario_modificacion")
 	@NotBlank
 	@Size(max = 20)
 	private String usuarioModificacion;
-
+	
 	@NotNull
 	private Short status;
-
+	
 }

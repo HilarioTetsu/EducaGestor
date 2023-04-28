@@ -1,12 +1,17 @@
 package com.springboot.educagestor.app.models.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,30 +24,30 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "administradores")
+@Table(name = "alumnos_materias")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Profesor_Materia {
+public class AlumnoMateria {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "profesor_materia_id")
-	private Integer profesorMateriaId;
+	private Integer id;
 	
-	@NotBlank
-	@Column(name="profesor_id",length=10,unique = true)
-	@Size(max = 10)
-	private String profesorId;
 	
-	@NotBlank
-	@Column(name="materia_id",length=17,unique = true)
-	@Size(max = 17)
-	private String materiaId;
 	
-	@NotNull
-	@Column(name = "semestre_nombre_id",unique = true)
-	private Byte semestreNombreId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="alumno_id")
+	private Alumno alumno;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "profesor_materia_id")
+	private ProfesorMateria profesorMateria;
+	
+	
+	@OneToMany(mappedBy = "alumnoMateria")
+	private List<Calificacion> calificacionList;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")
