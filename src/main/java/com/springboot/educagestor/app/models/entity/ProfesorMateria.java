@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,22 +35,28 @@ public class ProfesorMateria {
 	@Column(name = "profesor_materia_id")
 	private Integer profesorMateriaId;
 	
-	@NotBlank
-	@Column(name="profesor_id",length=10,unique = true)
-	@Size(max = 10)
-	private String profesorId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "profesor_id",unique = true,referencedColumnName = "profesor_id")
+	private Profesor profesor;
 	
-	@NotBlank
-	@Column(name="materia_id",length=17,unique = true)
-	@Size(max = 17)
-	private String materiaId;
 	
-	@NotNull
-	@Column(name = "semestre_nombre_id",unique = true)
-	private Byte semestreNombreId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "materia_id",unique = true,referencedColumnName = "materia_id")
+	private Materia materia;
+	
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "semestre_nombre_id",unique = true,referencedColumnName = "semestre_nombre_id")
+	private SemestreNombre semestreNombre;
+	
 	
 	@OneToMany(mappedBy = "profesorMateria",fetch = FetchType.LAZY)
 	private List<AlumnoMateria> listAlumnoMateria;
+	
+	@OneToMany(mappedBy = "profesorMateria",fetch = FetchType.LAZY)
+	private List<Asistencia> listAsistencia;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")

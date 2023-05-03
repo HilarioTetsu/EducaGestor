@@ -9,7 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,12 +40,12 @@ public class Alumno {
 	@Column(length = 11, unique = true, name = "alumno_id", nullable = true)
 	@Size(max = 11)
 	private String alumnoId;
+		
 
-	@NotBlank
-	@Column(length = 36, name = "persona_id")
-	@Size(max = 36)
-	private String personaId;
-
+	@OneToOne()
+	@JoinColumn(name = "persona_id")
+	private Persona persona;
+	
 	@NotNull
 	private Short generacion;
 
@@ -50,22 +53,31 @@ public class Alumno {
 	@Column(name = "semestre_actual")
 	private Byte semestreActual;
 
-	@NotNull
-	@Column(name = "carrera_id")
-	private Byte carreraId;
+	
+	@ManyToOne()
+	@JoinColumn(name = "carrera_id")
+	private Carrera carrera;
+	
 
 	@NotNull
 	@Column(name = "creditos_totales")
 	private Byte creditosTotales;
 
-	@NotNull
-	@Column(name = "plan_estudios_id")
-	private Byte planEstudiosId;
+
+	
+	@ManyToOne
+	@JoinColumn(name = "plan_estudios_id")
+	private PlanEstudios planEstudios;
 	
 	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "alumno")
 	private List<AlumnoMateria> listAlumnoMateria;
+	
+	
 
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "alumno")
+	private List<Asistencia> asistencia;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")
 	@NotNull

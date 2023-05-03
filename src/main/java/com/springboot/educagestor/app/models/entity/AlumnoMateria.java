@@ -37,7 +37,7 @@ public class AlumnoMateria {
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="alumno_id")
+	@JoinColumn(name="alumno_id",referencedColumnName = "alumno_id")
 	private Alumno alumno;
 	
 	

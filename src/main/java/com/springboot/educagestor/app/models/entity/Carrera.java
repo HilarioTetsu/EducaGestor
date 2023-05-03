@@ -1,12 +1,15 @@
 package com.springboot.educagestor.app.models.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,6 +42,13 @@ public class Carrera {
 	@Column(length = 6,nullable = false)
 	@Size(max = 6)
 	private String acronimo;
+	
+	
+	@OneToMany(mappedBy = "carrera")
+	private List<PlanEstudios> listPlanEstudio;
+	
+	@OneToMany(mappedBy = "carrera",fetch = FetchType.LAZY)
+	private List<Alumno> listAlumno;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")

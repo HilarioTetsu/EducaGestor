@@ -1,12 +1,15 @@
 package com.springboot.educagestor.app.models.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,6 +37,10 @@ public class Academia {
 	@NotBlank
 	@Size(max = 50)
 	private String descripcion;
+	
+	@OneToMany(mappedBy = "academia",fetch = FetchType.LAZY)
+	private List<Materia> listMateria;
+	
 		
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")

@@ -5,9 +5,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,11 +34,9 @@ public class Asistencia {
 	@Column(name = "asistencia_id")
 	private Integer asistenciaId;
 	
-	
-	@NotBlank
-	@Column(name = "alumno_id",length = 11)
-	@Size(max = 11)
-	private String alumnoId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "alumno_id",referencedColumnName = "alumno_id")
+	private Alumno alumno;
 	
 	@NotNull
 	@Column(name = "asistencia_status")
@@ -45,9 +46,10 @@ public class Asistencia {
 	@Column(name = "fecha_asistencia")
 	private LocalDate fechaAsistencia;
 	
-	@NotNull
-	@Column(name = "profesor_materia_id")
-	private Integer profesorMateriaId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="profesor_materia_id",referencedColumnName = "profesor_materia_id")
+	private ProfesorMateria profesorMateria;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")

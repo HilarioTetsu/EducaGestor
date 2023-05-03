@@ -1,12 +1,17 @@
 package com.springboot.educagestor.app.models.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,19 +46,27 @@ public class Materia {
 	
 	@NotNull
 	private Byte creditos;
+		
 	
-	@NotNull
-	@Column(name = "academia_id")
-	private Byte academiaId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "academia_id",referencedColumnName = "academia_id")
+	private Academia academia;
 	
 	@NotBlank
 	@Column(length = 5)
 	@Size(max = 5)
 	private String acronimo;
 	
-	@NotNull
-	@Column(name = "planEstudios_id")
-	private Byte planEstudiosId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "planEstudios_id", referencedColumnName = "plan_estudios_id")
+	private PlanEstudios planEstudios;
+	
+	@OneToMany(mappedBy = "materia")
+	private List<ProfesorMateria> listProfesorMateria;
+	
+	@OneToMany(mappedBy = "materia",fetch = FetchType.LAZY)
+	private List<Clase> listClase;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")

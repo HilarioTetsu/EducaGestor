@@ -1,13 +1,21 @@
 package com.springboot.educagestor.app.models.entity;
 
 import java.time.LocalDate;
+
 import java.util.Date;
+import java.util.List;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,19 +44,24 @@ public class Profesor {
 	@Column(name = "profesor_id",length = 10,nullable = true,unique = true)
 	@Size(max = 10)
 	private String profesorId;
+		
 	
-	@NotBlank
-	@Column(name = "persona_id",length = 36)
-	@Size(max = 36)
-	private String personaId;
+	@OneToOne
+	@JoinColumn(name="persona_id")
+	private Persona persona;
+	
 	
 	@NotNull
 	@Column(name = "fecha_ingreso")
 	private LocalDate fechaIngreso;
 	
-	@NotNull
-	@Column(name = "academia_id")
-	private Byte academiaId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "academia_id")
+	private Academia academia;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "profesor")
+	private List<ProfesorMateria> listProfesorMateria;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")

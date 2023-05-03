@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -100,5 +101,11 @@ public class Persona {
 	
 	@NotNull
 	private Short status;
+	
+	@OneToOne(mappedBy = "persona")
+	private Profesor profesor;
+	
+	@OneToOne(mappedBy = "persona")
+	private Alumno persona;
 
 }

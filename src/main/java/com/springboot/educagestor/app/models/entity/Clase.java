@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,14 +33,17 @@ public class Clase {
 	@Column(name = "clase_id")
 	private Integer claseId;
 	
-	@NotBlank
-	@Column(name = "materia_id",length = 17)
-	@Size(max = 17)
-	private String materiaId;
 	
-	@NotNull
-	@Column(name = "horario_id")
-	private Byte horarioId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "materia_id",referencedColumnName = "materia_id")
+	private Materia materia;
+	
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="horario_id",referencedColumnName = "horario_id")
+	private Horario horario;
+	
 	
 	@NotBlank
 	@Column(name = "aula",length = 5)
