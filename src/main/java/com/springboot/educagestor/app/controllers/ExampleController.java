@@ -15,4 +15,10 @@ public class ExampleController {
 		return "example";
 	}
 	
+	@GetMapping("/alumno")
+	public String login() {
+		
+		return "example";
+	}
+	
 }
