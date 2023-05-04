@@ -3,6 +3,7 @@ package com.springboot.educagestor.app;
 
 
 import org.springframework.context.annotation.Bean;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -26,6 +27,12 @@ public class SpringSecurityConfig{
 	            .roles("ALUMNO")
 	            .build());
 		
+		manager.createUser(User
+		        .withUsername("admin")
+		        .password(passwordEncoder().encode("1234"))
+		        .roles("ADMIN")
+		        .build());
+		
 		
 		return manager;
 	}
@@ -43,7 +50,8 @@ public class SpringSecurityConfig{
          antMatchers("/alumno/**").hasAnyRole("ALUMNO")
          .anyRequest().authenticated()
          .and().formLogin().loginPage("/login").permitAll()
-         .and().logout().permitAll();
+         .and().logout().permitAll()
+         .and().exceptionHandling().accessDeniedPage("/error_403");
   
          return http.build();
      }

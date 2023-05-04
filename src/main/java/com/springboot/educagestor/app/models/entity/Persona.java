@@ -79,6 +79,10 @@ public class Persona {
 	@Size(max = 1)
 	private String genero;
 	
+	@Column(length = 7,nullable = false)
+	@NotBlank
+	private String role;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")
 	@NotNull
