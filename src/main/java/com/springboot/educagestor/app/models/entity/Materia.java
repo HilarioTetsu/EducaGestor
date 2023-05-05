@@ -1,5 +1,6 @@
 package com.springboot.educagestor.app.models.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Materia {
+public class Materia implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2828745096148609428L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,7 +85,6 @@ public class Materia {
 	private String usuarioCreacion;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull
 	@Column(name = "fecha_modificacion",nullable = true)
 	private Date fechaModificacion;
 

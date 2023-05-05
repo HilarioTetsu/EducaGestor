@@ -1,5 +1,6 @@
 package com.springboot.educagestor.app.models.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Horario {
+public class Horario implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3086850381853493582L;
 
 	@Id
 	@Column(name = "horario_id")
@@ -56,7 +62,6 @@ public class Horario {
 	private String usuarioCreacion;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull
 	@Column(name = "fecha_modificacion",nullable = true)
 	private Date fechaModificacion;
 	

@@ -57,7 +57,6 @@ public class SemestreNombre {
 	private String usuarioCreacion;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull
 	@Column(name = "fecha_modificacion", nullable = true)
 	private Date fechaModificacion;
 
