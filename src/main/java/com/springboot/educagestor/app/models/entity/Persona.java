@@ -56,7 +56,7 @@ public class Persona implements Serializable{
 	@Column(nullable = false)
 	private Long telefono;
 	
-	@Column(length = 255,nullable = false)
+	@Column(length = 255,nullable = false,unique=true)
 	@NotBlank
 	@Size(max = 255)
 	@Email
@@ -85,7 +85,7 @@ public class Persona implements Serializable{
 	@Size(max = 1)
 	private String genero;
 	
-	@Column(length = 7,nullable = false)
+	@Column(length = 15,nullable = false)
 	@NotBlank
 	private String role;
 	
@@ -110,6 +110,8 @@ public class Persona implements Serializable{
 	
 	@NotNull
 	private Short status;
+	
+	private Boolean enabled;
 	
 	@OneToOne(mappedBy = "persona")
 	private Profesor profesor;

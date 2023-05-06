@@ -1,63 +1,49 @@
 package com.springboot.educagestor.app;
 
-
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
+
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.springboot.educagestor.app.models.services.JpaUserDetailsService;
+
 @Configuration
-@EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true)
-public class SpringSecurityConfig{
+public class SpringSecurityConfig {
+
+	@Autowired
+	private JpaUserDetailsService userDetailsService;
+
+	@Autowired
+	public void userDetailsService(AuthenticationManagerBuilder build) throws Exception {
+
+		build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		
+	}
 
 	@Bean
-	public UserDetailsService userDetailsService()throws Exception{
-				
-		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-		manager.createUser(User
-	            .withUsername("hilaro")
-	            .password(passwordEncoder().encode("1234"))
-	            .roles("ALUMNO")
-	            .build());
-		
-		manager.createUser(User
-		        .withUsername("admin")
-		        .password(passwordEncoder().encode("1234"))
-		        .roles("ADMIN")
-		        .build());
-		
-		
-		return manager;
-	}
-	
-	@Bean 
 	public static BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	 @Bean
-     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-  
-         http.authorizeRequests()
-         .antMatchers("/","/css/**","/js/**","/images/**","/login").permitAll().
-         antMatchers("/alumno/**").hasAnyRole("ALUMNO")
-         .antMatchers("/admin/**").hasAnyRole("ADMIN")
-         .anyRequest().authenticated()
-         .and().formLogin().loginPage("/login").permitAll()
-         .and().logout().permitAll()
-         .and().exceptionHandling().accessDeniedPage("/error_403");
-  
-         return http.build();
-     }
 
-	
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/login").permitAll()
+				.antMatchers("/alumno/**").hasAnyRole("ALUMNO").antMatchers("/admin/**").hasAnyRole("ADMIN")
+				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
+				.permitAll().and().exceptionHandling().accessDeniedPage("/error_403");
+
+		return http.build();
+	}
+
 }

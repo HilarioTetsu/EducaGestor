@@ -66,7 +66,7 @@ public class LoginController {
 
 		if (principal != null) {
 
-			Persona persona=new Persona();
+			
 			
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			// String currentUserName = authentication.getName();

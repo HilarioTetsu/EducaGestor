@@ -72,6 +72,10 @@
     </div>
   </div>
 
+<p class="text-start text-body-secondary ms-5"
+		sec:authorize="isAuthenticated()">
+		Usuario Logueado: <span sec:authentication="name"></span>
+	</p>
 
 </body>
 

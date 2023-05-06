@@ -6,4 +6,6 @@ import com.springboot.educagestor.app.models.entity.Persona;
 
 public interface IPersonaDao extends JpaRepository<Persona, String>{
 
+	public Persona findByEmail(String email);
+	
 }
