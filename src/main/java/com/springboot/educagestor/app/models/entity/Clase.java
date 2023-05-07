@@ -1,11 +1,11 @@
 package com.springboot.educagestor.app.models.entity;
 
 import java.io.Serializable;
+
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,13 +41,13 @@ public class Clase implements Serializable{
 	private Integer claseId;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name = "materia_id",referencedColumnName = "materia_id")
 	private Materia materia;
 	
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name="horario_id",referencedColumnName = "horario_id")
 	private Horario horario;
 	

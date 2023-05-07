@@ -6,4 +6,6 @@ public interface IPersonaService {
 
 	
 	public Persona findOne(String id);
+	
+	public Persona findByEmail(String email);
 }

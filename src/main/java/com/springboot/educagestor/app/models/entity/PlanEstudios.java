@@ -47,12 +47,12 @@ public class PlanEstudios implements Serializable{
 	private String nombre;
 	
 	@NotBlank
-	@Column(length = 80)
-	@Size(max = 80)
+	@Column(length = 100)
+	@Size(max = 100)
 	private String descripcion;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name="carrera_id")
 	private Carrera carrera;
 	

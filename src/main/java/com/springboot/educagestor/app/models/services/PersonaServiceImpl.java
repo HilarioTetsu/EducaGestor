@@ -20,4 +20,11 @@ public class PersonaServiceImpl implements IPersonaService{
 		return personaDao.findById(id).orElse(null);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public Persona findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return personaDao.findByEmail(email);
+	}
+
 }

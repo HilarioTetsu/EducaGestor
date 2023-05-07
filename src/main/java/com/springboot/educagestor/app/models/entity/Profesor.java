@@ -63,7 +63,7 @@ public class Profesor implements Serializable{
 	private LocalDate fechaIngreso;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name = "academia_id")
 	private Academia academia;
 	

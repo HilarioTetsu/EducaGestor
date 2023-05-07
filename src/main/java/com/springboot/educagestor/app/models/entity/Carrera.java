@@ -40,8 +40,8 @@ public class Carrera implements Serializable{
 	private Byte carreraId;
 	
 	@NotBlank
-	@Column(length = 25)
-	@Size(max = 25)
+	@Column(length = 50)
+	@Size(max = 50)
 	private String descripcion;
 	
 	@NotBlank
@@ -50,7 +50,7 @@ public class Carrera implements Serializable{
 	private String acronimo;
 	
 	
-	@OneToMany(mappedBy = "carrera")
+	@OneToMany(mappedBy = "carrera",fetch = FetchType.LAZY)
 	private List<PlanEstudios> listPlanEstudio;
 	
 	@OneToMany(mappedBy = "carrera",fetch = FetchType.LAZY)

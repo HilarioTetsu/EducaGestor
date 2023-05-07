@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -25,7 +26,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "profesores_materias")
+@Table(name = "profesores_materias",indexes = {@Index(columnList = "profesor_id, materia_id,semestre_nombre_id",unique = true)})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -43,19 +44,19 @@ public class ProfesorMateria implements Serializable{
 	private Integer profesorMateriaId;
 	
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "profesor_id",unique = true,referencedColumnName = "profesor_id")
+	@ManyToOne()
+	@JoinColumn(name = "profesor_id",referencedColumnName = "profesor_id")
 	private Profesor profesor;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "materia_id",unique = true,referencedColumnName = "materia_id")
+	@ManyToOne()
+	@JoinColumn(name = "materia_id",referencedColumnName = "materia_id")
 	private Materia materia;
 	
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "semestre_nombre_id",unique = true,referencedColumnName = "semestre_nombre_id")
+	@ManyToOne()
+	@JoinColumn(name = "semestre_nombre_id",referencedColumnName = "semestre_nombre_id")
 	private SemestreNombre semestreNombre;
 	
 	

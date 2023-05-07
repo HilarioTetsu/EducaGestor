@@ -69,5 +69,8 @@ public class Administrador implements Serializable{
 	
 	@NotNull
 	private Short status;
+	
+	@NotNull
+	private Boolean enabled;
 
 }
