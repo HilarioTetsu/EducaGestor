@@ -291,4 +291,16 @@ usuario_modificacion VARCHAR(20) NULL,
 STATUS TINYINT NOT NULL,
 PRIMARY KEY (calif_id),
 CONSTRAINT FOREIGN KEY (alumno_materia_id) REFERENCES alumno_materia (id)
-);    
+);
+
+DELIMITER //
+CREATE PROCEDURE asignacionIdAlumnos()
+BEGIN
+    UPDATE alumnos AS a
+    SET a.alumno_id = (
+        SELECT CONCAT(LEFT(b.apellido_paterno, 1), LEFT(b.apellido_materno, 1), a.carrera_id, RIGHT(a.generacion, 2), a.id_sec)
+        FROM personas AS b
+        WHERE a.persona_id = b.persona_id
+    );
+END //
+DELIMITER ;

@@ -94,7 +94,7 @@ public class LoginController {
 			String currentUserName = authentication.getName();
 			logger.info("ESTE ES EL USERNAME:".concat(currentUserName));
 
-			Persona persona=personaService.findByEmail(currentUserName);
+			
 			
 			
 			
