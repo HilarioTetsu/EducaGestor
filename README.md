@@ -1,20 +1,35 @@
-# EducaGestor
-EducaGestor
-EducaGestor es un sistema gestor/administrador diseñado para alumnos y profesores de una universidad. Los alumnos pueden iniciar sesión en el sistema para ver sus calificaciones de cada materia, su historial académico, generar y exportar sus horarios. Los profesores pueden ver a sus alumnos de cada materia, subir la asistencia, calificaciones y el usuario administrador tiene acceso y modificación total a todos los datos.
+El siguiente texto es una reescritura del texto original en formato markdown, con algunos cambios para mejorar la claridad y la coherencia.
 
-Requisitos
+# EducaGestor
+EducaGestor es un sistema de gestión académica para universidades, que permite a los alumnos y profesores acceder a diferentes funcionalidades según su rol. 
+
+## Funcionalidades
+- Los alumnos pueden:
+  - Consultar sus calificaciones de cada materia y su historial académico.
+  - Generar y exportar sus horarios personalizados.
+- Los profesores pueden:
+  - Ver la lista de alumnos de cada materia que imparten.
+  - Registrar la asistencia y las calificaciones de los alumnos.
+- El usuario administrador puede:
+  - Acceder y modificar todos los datos del sistema.
+
+## Requisitos
 Para ejecutar el proyecto se necesita lo siguiente:
 
-Spring Boot 2.7.11
-Dependencias: JPA, Thymeleaf, Devtools, Lombok, Spring Web, MySQL Connector.
-XAMPP (para activar el servidor MySQL).
-Instalación
-Descargar y configurar Spring Tool Suite 4.
-Importar el proyecto en Spring Tool Suite 4.
-Descargar las dependencias del proyecto.
-Descargar e instalar XAMPP.
-Configurar application.properties
-Iniciar XAMPP y activar el servidor MySQL.
-Ejecutar el proyecto.
-Uso
-Para utilizar el proyecto, se puede acceder a través del navegador web. Los usuarios pueden iniciar sesión en la página de inicio con sus credenciales. Los alumnos tendrán acceso a su información académica y podrán generar/exportar horarios, mientras que los profesores tendrán acceso a sus alumnos y podrán subir la asistencia y calificaciones. El usuario administrador tendrá acceso total y podrá realizar cualquier modificación necesaria.
+- Spring Boot 2.7.11
+- Dependencias: JPA, Thymeleaf, Devtools, Lombok, Spring Web, MySQL Connector.
+- XAMPP (para activar el servidor MySQL).
+
+## Instalación
+Los pasos para instalar el proyecto son:
+
+1. Descargar y configurar Spring Tool Suite 4.
+2. Importar el proyecto en Spring Tool Suite 4.
+3. Descargar las dependencias del proyecto.
+4. Descargar e instalar XAMPP.
+5. Configurar application.properties
+6. Iniciar XAMPP y activar el servidor MySQL.
+7. Ejecutar el proyecto.
+
+## Uso
+Para utilizar el proyecto, se puede acceder a través del navegador web. Los usuarios pueden iniciar sesión en la página de inicio con sus credenciales. Según su rol, tendrán acceso a las funcionalidades correspondientes.
