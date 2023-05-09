@@ -71,8 +71,7 @@ public class Materia implements Serializable{
 	@OneToMany(mappedBy = "materia",fetch = FetchType.LAZY)
 	private List<ProfesorMateria> listProfesorMateria;
 	
-	@OneToMany(mappedBy = "materia",fetch = FetchType.LAZY)
-	private List<Clase> listClase;
+
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")

@@ -44,8 +44,8 @@ public class Horario implements Serializable{
 	private Byte diaSemana;
 	
 	@NotBlank
-	@Column(length = 9)
-	@Size(max = 9)
+	@Column(length = 11)
+	@Size(max = 11)
 	private String horario;
 	
 	

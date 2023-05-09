@@ -117,6 +117,6 @@ public class Persona implements Serializable{
 	private Profesor profesor;
 	
 	@OneToOne(mappedBy = "persona")
-	private Alumno persona;
+	private Alumno alumno;
 
 }
