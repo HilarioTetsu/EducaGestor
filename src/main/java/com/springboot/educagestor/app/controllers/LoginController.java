@@ -52,7 +52,7 @@ public class LoginController {
 		if (principal != null) {
 
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			String currentUserName = authentication.getName();
+			String currentUserName = personaService.getCurrentUserName();
 			logger.info("ESTE ES EL USERNAME:".concat(currentUserName));
 			
 			Persona persona=personaService.findByEmail(currentUserName);

@@ -15,4 +15,8 @@ public class AlumnoMateriaTablaDTO {
 	
 	private String nombreProfesor;
 	
+	private Byte semestreNombreId;
+	
+	private String nombreSemestre;
+	
 }
