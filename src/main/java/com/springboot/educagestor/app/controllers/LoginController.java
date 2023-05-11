@@ -1,6 +1,7 @@
 package com.springboot.educagestor.app.controllers;
 
 import java.security.Principal;
+
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.springboot.educagestor.app.models.dao.IAdministradorDao;
-import com.springboot.educagestor.app.models.entity.Persona;
 import com.springboot.educagestor.app.models.services.IPersonaService;
 import com.springboot.educagestor.app.util.constants.Constants;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,13 +53,13 @@ public class LoginController {
 			String currentUserName = personaService.getCurrentUserName();
 			logger.info("ESTE ES EL USERNAME:".concat(currentUserName));
 			
-			Persona persona=personaService.findByEmail(currentUserName);
 			
-			if (persona!=null) {
+			
+/*			if (persona!=null) {
 				redirectAttributes.addAttribute("personaId", persona.getPersonaId());
 			}else {
-				redirectAttributes.addAttribute("personaId", adminDao.findByEmailOrUsername(currentUserName, currentUserName));
-			}
+				redirectAttributes.addAttribute("adminId", adminDao.findByEmailOrUsername(currentUserName, currentUserName));
+			}*/
 
 			
 			
@@ -73,8 +71,10 @@ public class LoginController {
 			logger.info("ESTE ES EL ROLE:".concat(role));
 			// Redirigir a la vista correspondiente según el rol del usuario
 			if (role.equals(Constants.ROLE_ALUMNO)) {
+				redirectAttributes.addAttribute("alumnoId", personaService.findByEmail(currentUserName).getPersonaId());
 				return "redirect:/alumno";
 			} else if (role.equals(Constants.ROLE_ADMIN)) {
+				redirectAttributes.addAttribute("adminId", adminDao.findByEmailOrUsername(currentUserName, currentUserName).getAdminId());
 				return "redirect:/admin";
 
 			}

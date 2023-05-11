@@ -55,16 +55,17 @@
 	<div class="container d-flex flex-column">
 
 		<h1 class="" th:text="'Alumno: ' + ${alumnoNombre}"></h1>
-		<h2 class="mt-2 mb-2" th:text="'Semestre seleccionado: '+${currentSemestre.acronimo}"></h2>
-		<form action="/alumno" method="post">
-			<select class="form-select mt-2" aria-label="Default select example">
-				<option th:each="semestre : ${listSemestres}"
+		<h2 class="mt-2 mb-2" th:if="${currentSemestre.acronimo!=null}" th:text="'Semestre seleccionado: '+${currentSemestre.acronimo}"></h2>
+		<form th:action="@{/alumno}" method="post">
+			<select class="form-select mt-2" aria-label="Default select example" name="selectSemestre">
+				<option th:if="${listSemestres!=null}" th:each="semestre : ${listSemestres}" 
 					th:text="${semestre.semestre}"
 					th:value="${semestre.semestreNombreId}"></option>
+				<option th:if="${listSemestres==null}">Sin Materias</option>	
 			</select>
 
-
-			<button class="mt-3 btn btn-primary">Actualizar</button>
+			<input type="hidden" th:value="${personaId}" name="id">
+			<button th:if="${listSemestres!=null}" class="mt-3 btn btn-primary" type="submit">Actualizar</button>
 		</form>
 
 	</div>
