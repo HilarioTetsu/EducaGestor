@@ -328,4 +328,16 @@ DELIMITER ;
         FROM profesores AS a
         INNER JOIN personas as b
         WHERE a.persona_id = b.persona_id;
+        
+DELIMITER //
+CREATE PROCEDURE asignacionIdMateria()
+BEGIN
+    UPDATE materias AS a
+    SET a.materia_id = (
+        SELECT CONCAT(b.acronimo, '-',b.creditos, '-',b.academia_id,'-', b.id_sec)
+        FROM materias AS b
+        WHERE a.id_sec = b.id_sec
+    ) WHERE a.id_sec>=6;
+END //
+DELIMITER ;        
     
