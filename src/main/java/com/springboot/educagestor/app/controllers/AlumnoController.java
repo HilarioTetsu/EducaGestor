@@ -1,6 +1,7 @@
 package com.springboot.educagestor.app.controllers;
 
 import java.util.ArrayList;
+
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,13 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.educagestor.app.models.dto.AlumnoMateriaTablaDTO;
 import com.springboot.educagestor.app.models.entity.AlumnoMateria;
-import com.springboot.educagestor.app.models.entity.Materia;
 import com.springboot.educagestor.app.models.entity.Persona;
 import com.springboot.educagestor.app.models.entity.SemestreNombre;
 import com.springboot.educagestor.app.models.services.IAlumnoService;
@@ -130,6 +131,12 @@ public class AlumnoController {
 		redirectAttributes.addAttribute("semestre", semestre);
 		redirectAttributes.addAttribute("alumnoId", personaId);
 		return "redirect:/alumno";
+	}
+	
+	@GetMapping("/horario/{semestre}")
+	public String verHorario(@PathVariable(value="semestre") String semestre,Model model) {
+		
+		return "horario";
 	}
 
 }

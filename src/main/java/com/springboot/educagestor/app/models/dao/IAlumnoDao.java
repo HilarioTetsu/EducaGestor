@@ -8,4 +8,6 @@ import com.springboot.educagestor.app.models.entity.Alumno;
 
 public interface IAlumnoDao extends JpaRepository<Alumno, String>{
 
+	
+	
 }
