@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,13 +43,13 @@ public class Clase implements Serializable{
 	private Integer claseId;
 	
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "profesor_materia_id",referencedColumnName = "profesor_materia_id")
 	private ProfesorMateria profesorMateria;
 	
 	
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="horario_id",referencedColumnName = "horario_id")
 	private Horario horario;
 	

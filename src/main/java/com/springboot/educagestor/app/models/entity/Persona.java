@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -113,10 +114,10 @@ public class Persona implements Serializable{
 	
 	private Boolean enabled;
 	
-	@OneToOne(mappedBy = "persona")
+	@OneToOne(mappedBy = "persona",fetch = FetchType.LAZY)
 	private Profesor profesor;
 	
-	@OneToOne(mappedBy = "persona")
+	@OneToOne(mappedBy = "persona",fetch = FetchType.LAZY)
 	private Alumno alumno;
 
 }

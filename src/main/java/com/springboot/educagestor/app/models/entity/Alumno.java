@@ -60,7 +60,7 @@ public class Alumno implements Serializable{
 	private Byte semestreActual;
 
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "carrera_id")
 	private Carrera carrera;
 	
@@ -71,7 +71,7 @@ public class Alumno implements Serializable{
 
 
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "plan_estudios_id")
 	private PlanEstudios planEstudios;
 	

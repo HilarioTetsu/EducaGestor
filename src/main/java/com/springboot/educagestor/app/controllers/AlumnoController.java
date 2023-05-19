@@ -2,6 +2,7 @@ package com.springboot.educagestor.app.controllers;
 
 import java.util.ArrayList;
 
+
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.educagestor.app.models.dto.AlumnoMateriaTablaDTO;
 import com.springboot.educagestor.app.models.entity.AlumnoMateria;
+
 import com.springboot.educagestor.app.models.entity.Persona;
 import com.springboot.educagestor.app.models.entity.SemestreNombre;
 import com.springboot.educagestor.app.models.services.IAlumnoService;
@@ -34,6 +36,7 @@ import com.springboot.educagestor.app.models.services.ISemestreNombreService;
 
 @Controller
 public class AlumnoController {
+
 
 	private final Logger logger = LoggerFactory.getLogger(AlumnoController.class);
 

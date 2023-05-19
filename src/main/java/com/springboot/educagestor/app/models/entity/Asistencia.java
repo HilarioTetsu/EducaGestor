@@ -7,7 +7,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +41,7 @@ public class Asistencia implements Serializable{
 	@Column(name = "asistencia_id")
 	private Integer asistenciaId;
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "alumno_id",referencedColumnName = "alumno_id")
 	private Alumno alumno;
 	
@@ -54,7 +54,7 @@ public class Asistencia implements Serializable{
 	private LocalDate fechaAsistencia;
 	
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="profesor_materia_id",referencedColumnName = "profesor_materia_id")
 	private ProfesorMateria profesorMateria;
 	

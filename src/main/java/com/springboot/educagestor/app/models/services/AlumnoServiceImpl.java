@@ -1,18 +1,18 @@
 package com.springboot.educagestor.app.models.services;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springboot.educagestor.app.models.dao.IAlumnoDao;
+
 import com.springboot.educagestor.app.models.dto.AlumnoMateriaTablaDTO;
 import com.springboot.educagestor.app.models.entity.AlumnoMateria;
 import com.springboot.educagestor.app.models.entity.Materia;
@@ -25,10 +25,7 @@ public class AlumnoServiceImpl implements IAlumnoService {
 	@Autowired
 	private IPersonaService personaService;
 	
-	@Autowired
-	private IAlumnoDao alumnoDao;
-	
-	private final Logger logger = LoggerFactory.getLogger(AlumnoServiceImpl.class);
+
 	
 	
 	@Override

@@ -44,18 +44,18 @@ public class ProfesorMateria implements Serializable{
 	private Integer profesorMateriaId;
 	
 
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "profesor_id",referencedColumnName = "profesor_id")
 	private Profesor profesor;
 	
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "materia_id",referencedColumnName = "materia_id")
 	private Materia materia;
 	
 	
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "semestre_nombre_id",referencedColumnName = "semestre_nombre_id")
 	private SemestreNombre semestreNombre;
 	
