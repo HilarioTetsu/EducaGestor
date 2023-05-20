@@ -4,15 +4,17 @@ package com.springboot.educagestor.app;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.springboot.educagestor.app.models.dao.IClaseDao;
-import com.springboot.educagestor.app.models.dao.IClaseDao2;
+
 import com.springboot.educagestor.app.models.dto.ClaseHorarioDTO;
 import com.springboot.educagestor.app.models.entity.Clase;
+import com.springboot.educagestor.app.models.services.IClaseService;
 
 
 
@@ -23,7 +25,9 @@ public class EducaGestorApplication implements CommandLineRunner{
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
-	private IClaseDao2 claseDao;
+	private IClaseService claseService;
+	@Autowired
+	private IClaseDao claseDao;
 	
 
 	
@@ -35,9 +39,18 @@ public class EducaGestorApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		//System.out.println(passwordEncoder.encode("1234"));
 		
-		for (ClaseHorarioDTO item : claseDao.findClaseHorarioBySemestreAcronimoYAlumnoId("ENE20-JUL20", "LG1234")) {
+		/*for (ClaseHorarioDTO item : claseDao.findClaseHorarioBySemestreAcronimoYAlumnoId("ENE20-JUL20", "LG1234")) {
 			
 			System.out.println(item.getAula());
+		}*/
+		
+		String[][] m=claseService.getMatrixHorarioByAcronimoSemestreAndAlumnoId("ENE20-JUL20", "LG1234");
+		
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				System.out.print("["+m[i][j]+"]");
+			}
+			System.out.println();
 		}
 
 	}

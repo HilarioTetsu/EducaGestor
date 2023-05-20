@@ -17,6 +17,7 @@ public class ClaseHorarioDTO {
 	
 	
 	
+	
 	public ClaseHorarioDTO() {
 	}
 	
@@ -50,6 +51,12 @@ public class ClaseHorarioDTO {
 	}
 	public void setDiaSemana(Byte diaSemana) {
 		this.diaSemana = diaSemana;
+	}
+
+	@Override
+	public String toString() {
+		return "ClaseHorarioDTO [nombre=" + nombre + ", aula=" + aula + ", horario=" + horario + ", diaSemana="
+				+ diaSemana + "]";
 	}
 	
 	
