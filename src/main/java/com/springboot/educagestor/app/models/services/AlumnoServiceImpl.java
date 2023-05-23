@@ -6,14 +6,17 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-
+import com.springboot.educagestor.app.models.dao.IAlumnoDao;
 import com.springboot.educagestor.app.models.dto.AlumnoMateriaTablaDTO;
+import com.springboot.educagestor.app.models.entity.Alumno;
 import com.springboot.educagestor.app.models.entity.AlumnoMateria;
 import com.springboot.educagestor.app.models.entity.Materia;
 import com.springboot.educagestor.app.models.entity.Persona;
@@ -25,7 +28,8 @@ public class AlumnoServiceImpl implements IAlumnoService {
 	@Autowired
 	private IPersonaService personaService;
 	
-
+	@Autowired
+	private IAlumnoDao alumnoDao;
 	
 	
 	@Override
@@ -69,6 +73,16 @@ public class AlumnoServiceImpl implements IAlumnoService {
 		
 		
 		return listResult;
+	}
+
+
+
+
+	@Override
+	@Transactional(readOnly = true)
+	public Optional<Alumno> findByAlumnoId(String alumnoId) {
+		// TODO Auto-generated method stub
+		return alumnoDao.findByAlumnoId(alumnoId);
 	}
 
 }

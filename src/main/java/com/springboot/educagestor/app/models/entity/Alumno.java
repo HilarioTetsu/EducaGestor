@@ -48,7 +48,7 @@ public class Alumno implements Serializable{
 	private String alumnoId;
 		
 
-	@OneToOne()
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "persona_id")
 	private Persona persona;
 	

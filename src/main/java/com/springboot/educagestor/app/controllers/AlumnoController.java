@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,11 +27,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.educagestor.app.models.dto.AlumnoMateriaTablaDTO;
+import com.springboot.educagestor.app.models.entity.Alumno;
 import com.springboot.educagestor.app.models.entity.AlumnoMateria;
 
 import com.springboot.educagestor.app.models.entity.Persona;
 import com.springboot.educagestor.app.models.entity.SemestreNombre;
 import com.springboot.educagestor.app.models.services.IAlumnoService;
+import com.springboot.educagestor.app.models.services.IClaseService;
 import com.springboot.educagestor.app.models.services.IPersonaService;
 import com.springboot.educagestor.app.models.services.ISemestreNombreService;
 
@@ -48,6 +51,9 @@ public class AlumnoController {
 	
 	@Autowired
 	private IAlumnoService alumnoService;
+	
+	@Autowired
+	private IClaseService claseService;
 
 	@GetMapping("/alumno")
 	public String alumno(@RequestParam("alumnoId") String personaId,
@@ -123,6 +129,7 @@ public class AlumnoController {
 
 		model.addAttribute("alumnoNombre", personaService.getFullName(persona));
 		model.addAttribute("personaId", persona.getPersonaId());
+		model.addAttribute("alumnoId", persona.getAlumno().getAlumnoId());
 		return "alumno";
 	}
 
@@ -136,9 +143,34 @@ public class AlumnoController {
 		return "redirect:/alumno";
 	}
 	
-	@GetMapping("/horario/{semestre}")
-	public String verHorario(@PathVariable(value="semestre") String semestre,Model model) {
+	@GetMapping("/horario/{semestre}/{alumnoId}")
+	public String verHorario(@PathVariable(value="semestre") String semestre,@PathVariable(value="alumnoId") String alumnoId,Model model) {
 		
+		//servicio que obtenga los todos los semestres cursados por un alumno, para comparar con parametro y
+		//retornar 404
+		Optional<Alumno> alumno=Optional.ofNullable(new Alumno());
+		alumno=alumnoService.findByAlumnoId(alumnoId);
+		Set<String> listSemestreByAlumno=semestreService.findSemestresByAlumnoId(alumnoId);
+		
+		String alumnoNombre=personaService.getFullName(alumno.get().getPersona());
+		
+		if (!alumno.get().getPersona().getEmail().equals(personaService.getCurrentUserName())) {
+			return "error_403";
+		}
+		
+		if (!listSemestreByAlumno.contains(semestre)) {
+			return "error_404";
+		}
+		
+		String[][] matrizHorario=claseService.getMatrixHorarioByAcronimoSemestreAndAlumnoId(semestre, alumnoId);
+		
+		
+		
+		
+		
+		model.addAttribute("matrizHorario", matrizHorario);
+		model.addAttribute("semestre", semestreService.findByAcronimo(semestre).getSemestre());
+		model.addAttribute("nombreAlumno", alumnoNombre);
 		return "horario";
 	}
 

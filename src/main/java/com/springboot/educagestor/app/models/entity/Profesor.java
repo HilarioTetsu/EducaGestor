@@ -53,7 +53,7 @@ public class Profesor implements Serializable{
 	private String profesorId;
 		
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="persona_id")
 	private Persona persona;
 	

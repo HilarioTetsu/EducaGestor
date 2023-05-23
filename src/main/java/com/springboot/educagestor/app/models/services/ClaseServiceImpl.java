@@ -1,11 +1,12 @@
 package com.springboot.educagestor.app.models.services;
 
 import java.time.LocalTime;
+
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
+
 import java.util.List;
-import java.util.Stack;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.springboot.educagestor.app.controllers.AlumnoController;
+
 import com.springboot.educagestor.app.models.dao.IClaseDao;
 import com.springboot.educagestor.app.models.dto.ClaseHorarioDTO;
-import com.springboot.educagestor.app.models.entity.Clase;
+
 import com.springboot.educagestor.app.util.constants.Constants;
 
 @Service
@@ -47,16 +48,16 @@ public class ClaseServiceImpl implements IClaseService {
 		
 		for (ClaseHorarioDTO item : listClaseHorario) {
 			
-			logger.info("Materia: "+item.getNombre());
+			/*logger.info("Materia: "+item.getNombre());
 			logger.info("Aula: "+item.getAula());
 			logger.info("dia: "+item.getDiaSemana());
 			logger.info("horario: "+item.getHorario());
-			logger.info("**********************************************************");
+			logger.info("**********************************************************");*/
 			
 			
 			if (Constants.HORARIOS_MAP.containsKey(item.getHorario()) && Constants.DIA_SEMANA_SET.contains(item.getDiaSemana().intValue())) {
 				
-				matrixResult[Constants.HORARIOS_MAP.get(item.getHorario())][item.getDiaSemana()]=item.getNombre()+"|"+item.getAula();
+				matrixResult[Constants.HORARIOS_MAP.get(item.getHorario())][item.getDiaSemana()]=item.getNombre()+"\n"+item.getAula();
 			}
 			
 		}
@@ -86,7 +87,7 @@ public class ClaseServiceImpl implements IClaseService {
 					continue;
 				}
 
-				matrixResult[i][j] = "*";
+				matrixResult[i][j] = "";
 
 			}
 		}

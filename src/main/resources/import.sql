@@ -231,3 +231,13 @@ insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, 
 insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('D104', '2023-08-29 11:01:27', 1, 'gcherry0', 32, 14);
 insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('C103', '2023-05-08 06:30:55', 1, 'adudny0', 51, 14);
 insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('D105', '2023-08-07 13:18:26', 1, 'vaddington0', 65, 14);
+insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('C104', '2023-05-10 11:13:52', 1, 'rfaulkner0', 9, 6);
+insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('D105', '2023-05-10 11:13:52', 1, 'rfaulkner0', 22, 6);
+insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('D105', '2023-05-10 11:13:52', 1, 'rfaulkner0', 38, 6);
+insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('B102', '2023-05-10 11:13:52', 1, 'rfaulkner0', 49, 6);
+insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('C104', '2023-05-10 11:13:52', 1, 'rfaulkner0', 62, 6);
+insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('C102', '2023-05-10 11:13:52', 1, 'rfaulkner0', 4, 7);
+insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('D104', '2023-05-10 11:13:52', 1, 'rfaulkner0', 24, 7);
+insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('C103', '2023-05-10 11:13:52', 1, 'rfaulkner0', 40, 7);
+insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('B102', '2023-05-10 11:13:52', 1, 'rfaulkner0', 48, 7);
+insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('C104', '2023-05-10 11:13:52', 1, 'rfaulkner0', 67, 7);
