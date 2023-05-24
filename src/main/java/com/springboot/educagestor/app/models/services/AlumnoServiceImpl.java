@@ -80,9 +80,9 @@ public class AlumnoServiceImpl implements IAlumnoService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Optional<Alumno> findByAlumnoId(String alumnoId) {
+	public Alumno findByAlumnoId(String alumnoId) {
 		// TODO Auto-generated method stub
-		return alumnoDao.findByAlumnoId(alumnoId);
+		return alumnoDao.findByAlumnoId(alumnoId).orElse(null);
 	}
 
 }

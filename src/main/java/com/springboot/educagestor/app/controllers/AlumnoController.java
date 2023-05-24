@@ -3,13 +3,13 @@ package com.springboot.educagestor.app.controllers;
 import java.util.ArrayList;
 
 
+
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.educagestor.app.models.dto.AlumnoMateriaTablaDTO;
+import com.springboot.educagestor.app.models.dto.CalificacionDTO;
 import com.springboot.educagestor.app.models.entity.Alumno;
 import com.springboot.educagestor.app.models.entity.AlumnoMateria;
 
@@ -60,6 +61,11 @@ public class AlumnoController {
 			@RequestParam(name = "semestre", required = false) Byte sems, Model model) {
 
 		Persona persona = personaService.findOne(personaId);
+		
+		if (persona==null) {
+			model.addAttribute("textoError", "Usuario no existe");
+			return "error_404";
+		}
 
 		if (!persona.getEmail().equals(personaService.getCurrentUserName())) {
 			return "error_403";
@@ -118,7 +124,16 @@ public class AlumnoController {
 
 		} else {
 
-			listMaterias.subList(1, listMaterias.size()).clear();
+			//listMaterias.subList(1, listMaterias.size()).clear();
+			Iterator<AlumnoMateriaTablaDTO> iterador = listMaterias.iterator();
+
+			while (iterador.hasNext()) {
+				AlumnoMateriaTablaDTO alumnoMateriaTablaDTO = (AlumnoMateriaTablaDTO) iterador.next();
+				if (alumnoMateriaTablaDTO.getSemestreNombreId() != listSemestres.get(0).getSemestreNombreId()) {
+					iterador.remove();
+				}
+			}
+			
 			model.addAttribute("listMaterias", listMaterias);
 			model.addAttribute("listSemestres", listSemestres);
 			model.addAttribute("currentSemestre", semestreService.findById(listMaterias.get(0).getSemestreNombreId()));
@@ -148,17 +163,24 @@ public class AlumnoController {
 		
 		//servicio que obtenga los todos los semestres cursados por un alumno, para comparar con parametro y
 		//retornar 404
-		Optional<Alumno> alumno=Optional.ofNullable(new Alumno());
-		alumno=alumnoService.findByAlumnoId(alumnoId);
+		
+		
+		Alumno alumno=alumnoService.findByAlumnoId(alumnoId);
+		
+		if (alumno==null) {
+			model.addAttribute("textoError", "AlumnoId incorrecto o no existe");
+			return "error_404";
+		}
 		Set<String> listSemestreByAlumno=semestreService.findSemestresByAlumnoId(alumnoId);
 		
-		String alumnoNombre=personaService.getFullName(alumno.get().getPersona());
+		String alumnoNombre=personaService.getFullName(alumno.getPersona());
 		
-		if (!alumno.get().getPersona().getEmail().equals(personaService.getCurrentUserName())) {
+		if (!alumno.getPersona().getEmail().equals(personaService.getCurrentUserName())) {
 			return "error_403";
 		}
 		
 		if (!listSemestreByAlumno.contains(semestre)) {
+			model.addAttribute("textoError", "El alumno no ha cursado ese semestre");
 			return "error_404";
 		}
 		
@@ -173,5 +195,16 @@ public class AlumnoController {
 		model.addAttribute("nombreAlumno", alumnoNombre);
 		return "horario";
 	}
+	
+	
+	@GetMapping("/calificaciones")
+	public String verCalificaciones(@RequestParam("semestre") String semestre,@RequestParam("alumnoId") String alumnoId,
+			@RequestParam("materiaId") String materiaId) {
+		
+		CalificacionDTO calif;
+		
+		return "calificaciones";
+	}
+	
 
 }
