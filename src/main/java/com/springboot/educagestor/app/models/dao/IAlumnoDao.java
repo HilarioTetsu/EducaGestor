@@ -16,4 +16,6 @@ public interface IAlumnoDao extends JpaRepository<Alumno, String>{
 	
 	public Optional<Alumno> findByAlumnoId(String alumnoId);
 	
+	public Boolean existsByAlumnoId(String alumnoId);
+	
 }

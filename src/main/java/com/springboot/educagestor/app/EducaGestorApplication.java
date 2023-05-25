@@ -3,7 +3,8 @@ package com.springboot.educagestor.app;
 
 
 
-import java.util.Iterator;
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import com.springboot.educagestor.app.models.dao.ICalificacionDao;
 import com.springboot.educagestor.app.models.dao.IClaseDao;
 import com.springboot.educagestor.app.models.dto.CalificacionDTO;
 import com.springboot.educagestor.app.models.dto.ClaseHorarioDTO;
-import com.springboot.educagestor.app.models.entity.Clase;
+import com.springboot.educagestor.app.models.services.ICalificacionService;
 import com.springboot.educagestor.app.models.services.IClaseService;
 
 
@@ -33,7 +34,7 @@ public class EducaGestorApplication implements CommandLineRunner{
 	@Autowired
 	private IClaseDao claseDao;
 	@Autowired
-	private ICalificacionDao califDao;
+	private ICalificacionService califService;
 
 	
 	public static void main(String[] args) {
@@ -58,7 +59,7 @@ public class EducaGestorApplication implements CommandLineRunner{
 			System.out.println();
 		}*/
 		
-		List<CalificacionDTO> listCalif=califDao.findCalificacionesByAcronimoSemestreAndAlumnoIdAndMateriaId("ENE20-JUL20", "LG1234", "FBD-2-3-11");
+		List<CalificacionDTO> listCalif=califService.findCalificacionesByAcronimoSemestreAndAlumnoIdAndMateriaId("ENE20-JUL20", "LG1234", "FBD-2-3-11");
 		
 		for (CalificacionDTO item : listCalif) {
 			System.out.println(item.getUnidad()+": "+item.getCalificacion());

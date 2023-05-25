@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+
+<header th:replace="layout/layout :: header"></header>
+
+
+<body>
+	<div class="container d-flex flex-column">
+
+		<h1 class="" th:text="'Alumno: ' + ${nombreAlumno}"></h1>
+		<h2 class="mt-2 mb-2" th:text="'Semestre: '+${semestre}"></h2>
+		<h2 class="mt-2 mb-2" th:text="'Materia: '+${materiaNombre}"></h2>			
+
+
+
+	</div>
+
+
+	<div class="container mb-5 mt-3" sec:authorize="isAuthenticated()">
+		<table class="table table-striped table-hover">
+		
+			<thead>
+				<tr >
+				
+					<th scope="col" th:each="calif : ${listCalificaciones}" th:text="${calif.unidad}"></th>		
+												
+				</tr>
+				
+			</thead>
+			
+			<tbody>
+			
+				<tr >
+
+					<td th:each="calif : ${listCalificaciones}" th:text="${calif.calificacion}"></td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+
+
+
+
+</body>
+
+
+
+<footer th:replace="layout/layout :: footer"></footer>
+
+
+
+
+</html>

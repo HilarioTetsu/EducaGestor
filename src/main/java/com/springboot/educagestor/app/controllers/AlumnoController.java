@@ -30,11 +30,13 @@ import com.springboot.educagestor.app.models.dto.AlumnoMateriaTablaDTO;
 import com.springboot.educagestor.app.models.dto.CalificacionDTO;
 import com.springboot.educagestor.app.models.entity.Alumno;
 import com.springboot.educagestor.app.models.entity.AlumnoMateria;
-
+import com.springboot.educagestor.app.models.entity.Materia;
 import com.springboot.educagestor.app.models.entity.Persona;
 import com.springboot.educagestor.app.models.entity.SemestreNombre;
 import com.springboot.educagestor.app.models.services.IAlumnoService;
+import com.springboot.educagestor.app.models.services.ICalificacionService;
 import com.springboot.educagestor.app.models.services.IClaseService;
+import com.springboot.educagestor.app.models.services.IMateriaService;
 import com.springboot.educagestor.app.models.services.IPersonaService;
 import com.springboot.educagestor.app.models.services.ISemestreNombreService;
 
@@ -55,12 +57,26 @@ public class AlumnoController {
 	
 	@Autowired
 	private IClaseService claseService;
+	
+	@Autowired
+	private ICalificacionService califService;
+	
+	@Autowired
+	private IMateriaService materiaService;
 
 	@GetMapping("/alumno")
-	public String alumno(@RequestParam("alumnoId") String personaId,
+	public String alumno(@RequestParam(name ="alumnoId", required = false) String personaId,
 			@RequestParam(name = "semestre", required = false) Byte sems, Model model) {
 
-		Persona persona = personaService.findOne(personaId);
+		Persona persona =new Persona();
+		
+		if (personaId==null) {
+			persona=personaService.findByEmail(personaService.getCurrentUserName());
+		}else {
+			persona = personaService.findOne(personaId);
+		}
+		
+	
 		
 		if (persona==null) {
 			model.addAttribute("textoError", "Usuario no existe");
@@ -199,9 +215,40 @@ public class AlumnoController {
 	
 	@GetMapping("/calificaciones")
 	public String verCalificaciones(@RequestParam("semestre") String semestre,@RequestParam("alumnoId") String alumnoId,
-			@RequestParam("materiaId") String materiaId) {
+			@RequestParam("materiaId") String materiaId,Model model) {
+		//Cambiar parametros al tipo no requerido, en caso de no incluirlos redirigir a vista calificaciones
+		//por semestre y exportar pdf
 		
-		CalificacionDTO calif;
+		Alumno alumno=alumnoService.findByAlumnoId(alumnoId);
+		
+		if (alumno==null) {
+			model.addAttribute("textoError", "AlumnoId incorrecto o no existe");
+			return "error_404";
+		}
+			
+		
+		if (!alumno.getPersona().getEmail().equals(personaService.getCurrentUserName())) {
+			return "error_403";
+		}
+		
+		
+		List<CalificacionDTO> listCalif=new ArrayList<CalificacionDTO>();
+		listCalif=califService.findCalificacionesByAcronimoSemestreAndAlumnoIdAndMateriaId(semestre, alumnoId, materiaId);
+		
+		 if (listCalif.size()==0) {
+				model.addAttribute("textoError", "No se encuentran calificaciones con los parametros dados");
+				return "error_404";
+		}
+		
+		 Materia materia=materiaService.findByMateriaId(materiaId);
+		 
+		 String alumnoNombre=personaService.getFullName(alumno.getPersona());
+		 
+		 model.addAttribute("listCalificaciones", listCalif);
+		 model.addAttribute("semestre", semestreService.findByAcronimo(semestre).getSemestre());
+		 model.addAttribute("nombreAlumno", alumnoNombre);
+		 model.addAttribute("materiaNombre", materia.getNombre());
+		
 		
 		return "calificaciones";
 	}
