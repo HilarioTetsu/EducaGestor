@@ -5,7 +5,10 @@ package com.springboot.educagestor.app;
 
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.springboot.educagestor.app.models.dao.ICalificacionDao;
 import com.springboot.educagestor.app.models.dao.IClaseDao;
+import com.springboot.educagestor.app.models.dao.IMateriaDao;
 import com.springboot.educagestor.app.models.dto.CalificacionDTO;
 import com.springboot.educagestor.app.models.dto.ClaseHorarioDTO;
 import com.springboot.educagestor.app.models.services.ICalificacionService;
@@ -35,7 +39,8 @@ public class EducaGestorApplication implements CommandLineRunner{
 	private IClaseDao claseDao;
 	@Autowired
 	private ICalificacionService califService;
-
+	@Autowired
+	private IMateriaDao materiaDao;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(EducaGestorApplication.class, args);
@@ -59,11 +64,25 @@ public class EducaGestorApplication implements CommandLineRunner{
 			System.out.println();
 		}*/
 		
-		List<CalificacionDTO> listCalif=califService.findCalificacionesByAcronimoSemestreAndAlumnoIdAndMateriaId("ENE20-JUL20", "LG1234", "FBD-2-3-11");
+		/*List<CalificacionDTO> listCalif=califService.findCalificacionesByAcronimoSemestreAndAlumnoIdAndMateriaId("ENE20-JUL20", "LG1234", "FBD-2-3-11");
 		
 		for (CalificacionDTO item : listCalif) {
 			System.out.println(item.getUnidad()+": "+item.getCalificacion());
+		}*/
+		
+		/*for (String string : materiaDao.findMateriaNombresBySemestreAcronimoAndAlumnoId("ENE20-JUL20", "LG1234")) {
+			System.out.println(string);
+		}*/
+		
+		Map<String, List<CalificacionDTO>> mapResult = new HashMap<>();
+		List<String> listCalif=materiaDao.findMateriaNombresBySemestreAcronimoAndAlumnoId("ENE20-JUL20", "LG1234");
+		
+		mapResult=califService.findCalificacionesSemestreByMateriasAndSemestreAcronimoAndAlumnoId(listCalif,"ENE20-JUL20", "LG1234");
+		
+		for (Map.Entry mp : mapResult.entrySet()) {
+			System.out.println(mp.getKey()+": "+mp.getValue().toString());
 		}
+		
 	}
 
 }

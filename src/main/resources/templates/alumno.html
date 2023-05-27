@@ -24,7 +24,7 @@
 			<div class="container d-flex flex-row justify-content-between">
 				<button th:if="${listSemestres!=null}" class="mt-3 btn btn-primary"
 					type="submit">Actualizar</button>
-				<a target="_blank" class="mt-3 btn btn-danger" th:href="@{'/horario/'+${currentSemestre.acronimo}+'/'+${alumnoId}(format=pdf)}">Exportar Horario PDF</a>
+				<a target="_blank" class="mt-3 btn btn-danger" th:href="@{'alumno/horario/'+${currentSemestre.acronimo}+'/'+${alumnoId}(format=pdf)}">Exportar Horario PDF</a>
 			</div>
 
 		</form>
@@ -52,7 +52,7 @@
 					<td th:text="${materia.nombreProfesor}"></td>
 					<td th:text="${materia.nombreSemestre}"></td>
 					<td>
-					<a  class="btn btn-success" th:href="@{/calificaciones/(semestre=${currentSemestre.acronimo},alumnoId=${alumnoId},materiaId=${materia.materiaId})}">Ver</a>
+					<a  class="btn btn-success" th:href="@{alumno/calificaciones/(semestre=${currentSemestre.acronimo},alumnoId=${alumnoId},materiaId=${materia.materiaId})}">Ver</a>
 					</td>
 
 				</tr>

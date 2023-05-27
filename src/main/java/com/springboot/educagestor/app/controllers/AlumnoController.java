@@ -174,11 +174,11 @@ public class AlumnoController {
 		return "redirect:/alumno";
 	}
 	
-	@GetMapping("/horario/{semestre}/{alumnoId}")
+	@GetMapping("alumno/horario/{semestre}/{alumnoId}")
 	public String verHorario(@PathVariable(value="semestre") String semestre,@PathVariable(value="alumnoId") String alumnoId,Model model) {
 		
 		//servicio que obtenga los todos los semestres cursados por un alumno, para comparar con parametro y
-		//retornar 404
+		//retornar 404: HECHO
 		
 		
 		Alumno alumno=alumnoService.findByAlumnoId(alumnoId);
@@ -213,11 +213,27 @@ public class AlumnoController {
 	}
 	
 	
-	@GetMapping("/calificaciones")
-	public String verCalificaciones(@RequestParam("semestre") String semestre,@RequestParam("alumnoId") String alumnoId,
-			@RequestParam("materiaId") String materiaId,Model model) {
+	@GetMapping("/alumno/calificaciones")
+	public String verCalificaciones(@RequestParam(name="semestre",required = false) String semestre,
+			@RequestParam(name="alumnoId",required = false) String alumnoId,
+			@RequestParam(name="materiaId",required = false) String materiaId,Model model) {
 		//Cambiar parametros al tipo no requerido, en caso de no incluirlos redirigir a vista calificaciones
 		//por semestre y exportar pdf
+		
+		
+		if (semestre==null||alumnoId==null||materiaId==null) {
+			Persona persona=personaService.findByEmail(personaService.getCurrentUserName());
+			Alumno alumno=persona.getAlumno();
+			
+			Set<String> listSemestreByAlumno=semestreService.findSemestresByAlumnoId(alumno.getAlumnoId());
+			
+			model.addAttribute("alumnoNombre", personaService.getFullName(persona));
+			model.addAttribute("alumnoId", alumno.getAlumnoId());
+			model.addAttribute("listSemestres", listSemestreByAlumno);
+			
+			return "calificacionesSemestre";
+			 
+		}
 		
 		Alumno alumno=alumnoService.findByAlumnoId(alumnoId);
 		
@@ -250,8 +266,58 @@ public class AlumnoController {
 		 model.addAttribute("materiaNombre", materia.getNombre());
 		
 		
-		return "calificaciones";
+		return "calificacionesMateria";
 	}
 	
+	
+	@PostMapping("/alumno/calificaciones")
+	public String calificacionesMateriaPost(HttpServletRequest request,RedirectAttributes redirectAttributes) {
+		String semestre = request.getParameter("selectSemestre");
+		String alumnoId = request.getParameter("alumnoId");
+		
+		redirectAttributes.addAttribute("alumnoId", alumnoId);
+		redirectAttributes.addAttribute("semestre", semestre);
+		redirectAttributes.addAttribute("format", "pdf");
+		
+		return "redirect:/alumno/calificaciones/exportar";
+	}
+	
+	
+	@GetMapping("/alumno/calificaciones/exportar")
+	public String exportarCalificacionesSemestre(@RequestParam(name="semestre",required = false) String semestreAcronimo,
+			@RequestParam(name="alumnoId",required = false) String alumnoId,
+			Model model) {
+		int maxUnidades=0;
+		Alumno alumno=alumnoService.findByAlumnoId(alumnoId);
+		
+		if (alumno==null) {
+			model.addAttribute("textoError", "AlumnoId incorrecto o no existe");
+			return "error_404";
+		}
+		
+		if (!alumno.getPersona().getEmail().equals(personaService.getCurrentUserName())) {
+			return "error_403";
+		}
+		
+		String alumnoNombre=personaService.getFullName(alumno.getPersona());
+		
+		List<String> listCalif=materiaService.findMateriaNombresBySemestreAcronimoAndAlumnoId(semestreAcronimo, alumnoId);
+		Map<String, List<CalificacionDTO>>mapResult=califService.findCalificacionesSemestreByMateriasAndSemestreAcronimoAndAlumnoId(listCalif,"ENE20-JUL20", "LG1234");
+		
+		
+		for (Map.Entry<String, List<CalificacionDTO>> entry : mapResult.entrySet()) {
+			if (entry.getValue().size()>maxUnidades) {
+				maxUnidades=entry.getValue().size();
+			}
+		}
+		
+		model.addAttribute("mapCalificaciones", mapResult);
+		model.addAttribute("alumnoNombre", alumnoNombre);
+		model.addAttribute("semestreNombreCompleto", semestreService.findByAcronimo(semestreAcronimo).getSemestre());
+		model.addAttribute("carreraAlumno", alumno.getCarrera().getDescripcion());
+		model.addAttribute("maxUnidades", maxUnidades);
+		
+		return "calificacionesSemestrePDF";
+	}
 
 }

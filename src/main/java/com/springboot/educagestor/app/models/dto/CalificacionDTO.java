@@ -34,6 +34,12 @@ public class CalificacionDTO {
 	public void setCalificacion(Byte calificacion) {
 		this.calificacion = calificacion;
 	}
+
+
+	@Override
+	public String toString() {
+		return "CalificacionDTO [unidad=" + unidad + ", calificacion=" + calificacion + "]";
+	}
 	
 	
 	

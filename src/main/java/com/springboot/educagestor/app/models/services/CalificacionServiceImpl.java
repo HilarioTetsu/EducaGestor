@@ -1,6 +1,9 @@
 package com.springboot.educagestor.app.models.services;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +22,31 @@ public class CalificacionServiceImpl implements ICalificacionService {
 	@Transactional(readOnly = true)
 	public List<CalificacionDTO> findCalificacionesByAcronimoSemestreAndAlumnoIdAndMateriaId(String acronimo,
 			String alumnoId, String materiaId) {
-		// TODO Auto-generated method stub
-		return califDao.findCalificacionesByAcronimoSemestreAndAlumnoIdAndMateriaId(acronimo, alumnoId, materiaId);
+		
+		List<CalificacionDTO> listResult=new ArrayList<>();
+		
+		listResult=califDao.findCalificacionesByAcronimoSemestreAndAlumnoIdAndMateriaId(acronimo, alumnoId, materiaId);
+		
+		return listResult;
 	}
+
+	@Override
+	public Map<String, List<CalificacionDTO>> findCalificacionesSemestreByMateriasAndSemestreAcronimoAndAlumnoId(
+			List<String> listMaterias, String acronimo, String alumnoId) {
+		
+		Map<String, List<CalificacionDTO>> mapResult = new HashMap<>();
+		
+		
+		for (String materia : listMaterias) {
+			mapResult.put(materia, findCalificacionesByAcronimoSemestreAndAlumnoIdAndMateriaId(acronimo, alumnoId, materia));
+		}
+		
+		
+		return mapResult;
+	}
+
+
+
+
 
 }

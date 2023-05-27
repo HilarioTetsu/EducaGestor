@@ -241,7 +241,7 @@ insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, 
 insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('C103', '2023-05-10 11:13:52', 1, 'rfaulkner0', 40, 7);
 insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('B102', '2023-05-10 11:13:52', 1, 'rfaulkner0', 48, 7);
 insert into clases (aula, fecha_creacion, status, usuario_creacion, horario_id, profesor_materia_id) values ('C104', '2023-05-10 11:13:52', 1, 'rfaulkner0', 67, 7);
-insert into calificaciones (calif, fecha_creacion, status, unidad, usuario_creacion, alumno_materia_id) values (98, '2023-11-04 05:42:19', 1, 1, 'peccott0', 11);
+insert into calificaciones (calif, fecha_creacion, status, unidad, usuario_creacion, alumno_materia_id) values (99, '2023-11-04 05:42:19', 1, 1, 'peccott0', 11);
 insert into calificaciones (calif, fecha_creacion, status, unidad, usuario_creacion, alumno_materia_id) values (91, '2023-10-26 09:50:05', 1, 2, 'cscemp1', 11);
 insert into calificaciones (calif, fecha_creacion, status, unidad, usuario_creacion, alumno_materia_id) values (90, '2023-12-16 05:06:37', 1, 3, 'kcarillo2', 11);
 insert into calificaciones (calif, fecha_creacion, status, unidad, usuario_creacion, alumno_materia_id) values (70, '2023-03-11 12:40:59', 1, 4, 'aricht3', 11);
@@ -257,3 +257,4 @@ insert into calificaciones (calif, fecha_creacion, status, unidad, usuario_creac
 insert into calificaciones (calif, fecha_creacion, status, unidad, usuario_creacion, alumno_materia_id) values (96, '2023-08-20 19:48:38', 1, 2, 'sraise1', 14);
 insert into calificaciones (calif, fecha_creacion, status, unidad, usuario_creacion, alumno_materia_id) values (77, '2023-11-23 17:10:46', 1, 3, 'vjohanssen2', 14);
 insert into calificaciones (calif, fecha_creacion, status, unidad, usuario_creacion, alumno_materia_id) values (94, '2023-01-04 23:44:29', 1, 4, 'tegre3', 14);
+insert into calificaciones (calif, fecha_creacion, status, unidad, usuario_creacion, alumno_materia_id) values (70, '2023-01-04 23:44:29', 1, 5, 'tegre3', 14);
