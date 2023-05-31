@@ -49,4 +49,11 @@ public class PersonaServiceImpl implements IPersonaService{
 		return authentication.getName();
 	}
 
+	@Override
+	@Transactional
+	public Persona save(Persona persona) {
+		
+		return personaDao.save(persona);
+	}
+
 }

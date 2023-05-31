@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,14 +21,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.educagestor.app.models.dto.AlumnoMateriaTablaDTO;
 import com.springboot.educagestor.app.models.dto.CalificacionDTO;
+import com.springboot.educagestor.app.models.dto.PerfilAlumnoDTO;
 import com.springboot.educagestor.app.models.entity.Alumno;
 import com.springboot.educagestor.app.models.entity.AlumnoMateria;
 import com.springboot.educagestor.app.models.entity.Materia;
@@ -103,8 +108,9 @@ public class AlumnoController {
 
 		if (listAlumnoMaterias.size() == 0) {
 			model.addAttribute("alumnoNombre", personaService.getFullName(persona));
-			model.addAttribute("personaId", persona.getPersonaId());
+			model.addAttribute("personaId", persona.getPersonaId());			
 			model.addAttribute("currentSemestre", new SemestreNombre());
+			model.addAttribute("alumnoId", persona.getAlumno().getAlumnoId());
 			return "alumno";
 		}
 
@@ -264,7 +270,7 @@ public class AlumnoController {
 		 model.addAttribute("semestre", semestreService.findByAcronimo(semestre).getSemestre());
 		 model.addAttribute("nombreAlumno", alumnoNombre);
 		 model.addAttribute("materiaNombre", materia.getNombre());
-		
+		 model.addAttribute("alumnoId", alumno.getAlumnoId());
 		
 		return "calificacionesMateria";
 	}
@@ -318,6 +324,37 @@ public class AlumnoController {
 		model.addAttribute("maxUnidades", maxUnidades);
 		
 		return "calificacionesSemestrePDF";
+	}
+	
+	@GetMapping("/alumno/perfil/{alumnoId}")
+	public String verPerfil(@PathVariable("alumnoId") String alumnoId,Model model) {
+		
+		PerfilAlumnoDTO perfilAlumno=alumnoService.findPerfilAlumnoByAlumnoId(alumnoId);
+		
+		 model.addAttribute("alumnoId", alumnoId);
+		 model.addAttribute("perfilAlumno", perfilAlumno);
+		
+		return "perfilAlumno";
+	}
+	
+	@PostMapping("/alumno/perfil")
+	public String actualizarPerfil(@Valid @ModelAttribute("perfilAlumno") PerfilAlumnoDTO perfilAlumno,BindingResult result,SessionStatus status,Model model) {
+		
+		if(result.hasErrors()) {			
+			return "perfilAlumno";
+		}
+		
+		Persona persona=alumnoService.findByAlumnoId(perfilAlumno.getAlumnoId()).getPersona();
+		
+		persona.setDireccion(perfilAlumno.getDireccion());
+		persona.setCodigoPostal(perfilAlumno.getCodigoPostal());
+		persona.setTelefono(perfilAlumno.getTelefono());
+		persona.setUsuarioModificacion(perfilAlumno.getAlumnoId());
+		
+		personaService.save(persona);
+		
+		status.setComplete();
+		return "redirect:/alumno";
 	}
 
 }

@@ -17,11 +17,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.springboot.educagestor.app.models.dao.IAlumnoDao;
 import com.springboot.educagestor.app.models.dao.ICalificacionDao;
 import com.springboot.educagestor.app.models.dao.IClaseDao;
 import com.springboot.educagestor.app.models.dao.IMateriaDao;
 import com.springboot.educagestor.app.models.dto.CalificacionDTO;
 import com.springboot.educagestor.app.models.dto.ClaseHorarioDTO;
+import com.springboot.educagestor.app.models.dto.PerfilAlumnoDTO;
 import com.springboot.educagestor.app.models.services.ICalificacionService;
 import com.springboot.educagestor.app.models.services.IClaseService;
 
@@ -41,6 +43,9 @@ public class EducaGestorApplication implements CommandLineRunner{
 	private ICalificacionService califService;
 	@Autowired
 	private IMateriaDao materiaDao;
+	@Autowired
+	private IAlumnoDao alumnoDao;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(EducaGestorApplication.class, args);
@@ -48,6 +53,7 @@ public class EducaGestorApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		
 		//System.out.println(passwordEncoder.encode("1234"));
 		
 		/*for (ClaseHorarioDTO item : claseDao.findClaseHorarioBySemestreAcronimoYAlumnoId("ENE20-JUL20", "LG1234")) {
@@ -74,14 +80,18 @@ public class EducaGestorApplication implements CommandLineRunner{
 			System.out.println(string);
 		}*/
 		
-		Map<String, List<CalificacionDTO>> mapResult = new HashMap<>();
+		/*Map<String, List<CalificacionDTO>> mapResult = new HashMap<>();
 		List<String> listCalif=materiaDao.findMateriaNombresBySemestreAcronimoAndAlumnoId("ENE20-JUL20", "LG1234");
 		
 		mapResult=califService.findCalificacionesSemestreByMateriasAndSemestreAcronimoAndAlumnoId(listCalif,"ENE20-JUL20", "LG1234");
 		
 		for (Map.Entry mp : mapResult.entrySet()) {
 			System.out.println(mp.getKey()+": "+mp.getValue().toString());
-		}
+		}*/
+		
+		PerfilAlumnoDTO alumno=alumnoDao.findPerfilAlumnoByAlumnoId("LG1234");
+		
+		System.out.println(alumno);
 		
 	}
 

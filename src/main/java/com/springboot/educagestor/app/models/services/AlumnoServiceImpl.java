@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.educagestor.app.models.dao.IAlumnoDao;
 import com.springboot.educagestor.app.models.dto.AlumnoMateriaTablaDTO;
+import com.springboot.educagestor.app.models.dto.PerfilAlumnoDTO;
 import com.springboot.educagestor.app.models.entity.Alumno;
 import com.springboot.educagestor.app.models.entity.AlumnoMateria;
 import com.springboot.educagestor.app.models.entity.Materia;
@@ -83,6 +84,19 @@ public class AlumnoServiceImpl implements IAlumnoService {
 	public Alumno findByAlumnoId(String alumnoId) {
 		// TODO Auto-generated method stub
 		return alumnoDao.findByAlumnoId(alumnoId).orElse(null);
+	}
+
+
+
+
+	@Override
+	public PerfilAlumnoDTO findPerfilAlumnoByAlumnoId(String alumnoId) {
+	
+		PerfilAlumnoDTO alumno=new PerfilAlumnoDTO();
+		
+		alumno=alumnoDao.findPerfilAlumnoByAlumnoId(alumnoId);
+		
+		return alumno;
 	}
 
 }

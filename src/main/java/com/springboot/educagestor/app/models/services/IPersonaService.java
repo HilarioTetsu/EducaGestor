@@ -12,4 +12,6 @@ public interface IPersonaService {
 	public String getFullName(Persona persona);
 	
 	public String getCurrentUserName();
+	
+	public Persona save(Persona persona);
 }

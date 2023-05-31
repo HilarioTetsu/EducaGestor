@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -120,4 +121,8 @@ public class Persona implements Serializable{
 	@OneToOne(mappedBy = "persona",fetch = FetchType.LAZY)
 	private Alumno alumno;
 
+	 @PreUpdate
+	    public void preUpdateFunction(){
+		 fechaModificacion=new Date();
+	    }
 }
