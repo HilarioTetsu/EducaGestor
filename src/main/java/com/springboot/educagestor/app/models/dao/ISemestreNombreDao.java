@@ -15,4 +15,7 @@ public interface ISemestreNombreDao extends JpaRepository<SemestreNombre, Byte>{
 	
 	@Query("SELECT DISTINCT sm.acronimo from SemestreNombre sm join  sm.listProfesorMateria lpm join  lpm.listAlumnoMateria lam where lam.alumno.alumnoId=?1")
 	public Set<String> findSemestresByAlumnoId(String alumnoId);
+	
+	@Query("SELECT DISTINCT sn.semestreNombreId from ProfesorMateria pm join pm.semestreNombre sn WHERE pm.profesor.profesorId=?1")
+	public Set<Byte> findSemestresByProfesorId(String profesorId);
 }

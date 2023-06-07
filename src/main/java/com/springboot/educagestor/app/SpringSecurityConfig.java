@@ -43,6 +43,7 @@ public class SpringSecurityConfig {
 		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/login").permitAll()
 				.antMatchers("/alumno/**").hasAnyRole("ALUMNO")
 				.antMatchers("/admin/**").hasAnyRole("ADMIN")
+				.antMatchers("/profesor/**").hasAnyRole("PROFESOR")
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
 				.permitAll().and().exceptionHandling().accessDeniedPage("/error_403");
 

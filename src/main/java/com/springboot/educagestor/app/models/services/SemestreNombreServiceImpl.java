@@ -55,4 +55,14 @@ public class SemestreNombreServiceImpl implements ISemestreNombreService {
 		return semestreDao.findSemestresByAlumnoId(alumnoId);
 	}
 
+
+
+
+	@Override
+	@Transactional(readOnly = true)
+	public Set<Byte> findSemestresByProfesorId(String profesorId) {
+		// TODO Auto-generated method stub
+		return semestreDao.findSemestresByProfesorId(profesorId);
+	}
+
 }

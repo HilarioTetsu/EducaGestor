@@ -10,6 +10,7 @@ public class Constants {
 
 	public static final String ROLE_ALUMNO = "ROLE_ALUMNO";
 	public static final String ROLE_ADMIN = "ROLE_ADMIN";
+	public static final String ROLE_PROFESOR = "ROLE_PROFESOR";
 	public static final String VALIDACION_MENSAJE_NOT_BLANK = "El campo no debe estar vacio";
 	public static final String VALIDACION_MENSAJE_No_TELEFONICO = "Debe ser un numero telefonico de 10 digitos";
 	public static final String VALIDACION_MENSAJE_CPOSTAL = "Debe ser un codigo postal de 5 digitos";

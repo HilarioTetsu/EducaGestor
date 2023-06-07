@@ -11,4 +11,5 @@ public interface ISemestreNombreService {
 	public SemestreNombre findById(Byte id);
 	public SemestreNombre findByAcronimo(String acronimo);
 	public Set<String> findSemestresByAlumnoId(String alumnoId);
+	public Set<Byte> findSemestresByProfesorId(String profesorId);
 }

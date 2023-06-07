@@ -329,6 +329,18 @@ public class AlumnoController {
 	@GetMapping("/alumno/perfil/{alumnoId}")
 	public String verPerfil(@PathVariable("alumnoId") String alumnoId,Model model) {
 		
+		Alumno alumno=alumnoService.findByAlumnoId(alumnoId);
+		
+		if (alumno==null) {
+			model.addAttribute("textoError", "AlumnoId incorrecto o no existe");
+			return "error_404";
+		}
+		
+		if (!alumno.getPersona().getEmail().equals(personaService.getCurrentUserName())) {
+			return "error_403";
+		}
+		
+		
 		PerfilAlumnoDTO perfilAlumno=alumnoService.findPerfilAlumnoByAlumnoId(alumnoId);
 		
 		 model.addAttribute("alumnoId", alumnoId);

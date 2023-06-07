@@ -113,6 +113,10 @@ public class LoginController {
 				redirectAttributes.addAttribute("adminId", adminDao.findByEmailOrUsername(currentUserName, currentUserName).getAdminId());
 				return "redirect:/admin";
 
+			}else if (role.equals(Constants.ROLE_PROFESOR)) {
+				redirectAttributes.addAttribute("Id", personaService.findByEmail(currentUserName).getProfesor().getProfesorId());
+				return "redirect:/profesor";
+
 			}
 		}
 		
