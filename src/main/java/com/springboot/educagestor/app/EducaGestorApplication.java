@@ -24,6 +24,8 @@ import com.springboot.educagestor.app.models.dao.IMateriaDao;
 import com.springboot.educagestor.app.models.dao.IProfesorDao;
 import com.springboot.educagestor.app.models.dto.CalificacionDTO;
 import com.springboot.educagestor.app.models.dto.ClaseHorarioDTO;
+import com.springboot.educagestor.app.models.dto.ClaseHorariosProfesorMateriasDTO;
+import com.springboot.educagestor.app.models.dto.ListaAlumnosProfesorTablaDTO;
 import com.springboot.educagestor.app.models.dto.MateriasProfesorTablaDTO;
 import com.springboot.educagestor.app.models.dto.PerfilAlumnoDTO;
 import com.springboot.educagestor.app.models.services.ICalificacionService;
@@ -96,9 +98,14 @@ public class EducaGestorApplication implements CommandLineRunner{
 		
 		System.out.println(alumno);*/
 		
-		List<MateriasProfesorTablaDTO> listDto=profesordao.findMateriasByProfesorIdAndAcronimoSemestre("PR2154", "ENE20-JUL20");
+		/*List<ListaAlumnosProfesorTablaDTO> listDto=profesordao.findAlumnosByProfesorIdAndMateriaIdAndSemestreAndProfesorMateriaId("PR1175", "EDD-2-3-9", "AGO19-DIC19", 9);
 		
-		System.out.println(listDto);
+		System.out.println(listDto);*/
+		
+		List<ClaseHorariosProfesorMateriasDTO> listHorariosMateria=claseService.findClaseHorarioProfesorMateriaByProfesorMateriaId(11);
+		
+		System.out.println(listHorariosMateria);
+		
 	}
 
 }

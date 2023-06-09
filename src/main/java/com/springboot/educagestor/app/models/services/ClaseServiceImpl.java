@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.educagestor.app.models.dao.IClaseDao;
 import com.springboot.educagestor.app.models.dto.ClaseHorarioDTO;
-
+import com.springboot.educagestor.app.models.dto.ClaseHorariosProfesorMateriasDTO;
 import com.springboot.educagestor.app.util.constants.Constants;
 
 @Service
@@ -93,6 +93,20 @@ public class ClaseServiceImpl implements IClaseService {
 		}
 
 		return matrixResult;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<ClaseHorariosProfesorMateriasDTO> findClaseHorarioProfesorMateriaByProfesorMateriaId(
+			Integer profesorMateriaId) {
+		
+		List<ClaseHorariosProfesorMateriasDTO> listResult=claseDao.findClaseHorarioProfesorMateriaByProfesorMateriaId(profesorMateriaId);
+		
+		for (ClaseHorariosProfesorMateriasDTO horario : listResult) {
+			horario.setDiaSemana(Constants.DIA_SEMANA_MAP.get(horario.getNumDiaSemana()));
+		}
+		
+		return listResult;
 	}
 
 }

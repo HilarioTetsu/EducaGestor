@@ -19,7 +19,7 @@
 				<option th:if="${listSemestres!=null}"
 					th:each="semestre : ${listSemestres}"
 					th:text="${semestre.semestre}"
-					th:value="${semestre.semestreNombreId}"></option>
+					th:value="${semestre.acronimo}"></option>
 				<option th:if="${listSemestres==null}">Sin Materias</option>
 			</select> <input type="hidden" th:value="${profesorId}" name="id">
 			<div class="container d-flex flex-row justify-content-between">
@@ -47,7 +47,7 @@
 					<td th:text="${materia.materiaId}"></td>
 					<td th:text="${materia.materiaNombre}"></td>
 					<td>
-					<a  class="btn btn-success" th:href="@{profesor/alumnos(semestre=${currentSemestre.acronimo},materiaId=${materia.materiaId})}">Ver</a>
+					<a  class="btn btn-success" th:href="@{profesor/alumnos(semestre=${currentSemestre.acronimo},materiaId=${materia.materiaId},Id=${materia.profesorMateriaId})}">Ver</a>
 					</td>
 
 				</tr>

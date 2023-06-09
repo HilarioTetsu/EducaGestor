@@ -111,6 +111,7 @@ insert into alumnos_materias (fecha_creacion, status, usuario_creacion, alumno_i
 insert into alumnos_materias (fecha_creacion, status, usuario_creacion, alumno_id, profesor_materia_id) values ('2023-03-02 14:11:24', 1, 'mmissington1', 'LG1234', 12);
 insert into alumnos_materias (fecha_creacion, status, usuario_creacion, alumno_id, profesor_materia_id) values ('2023-03-11 09:19:47', 1, 'lfurman2', 'LG1234', 13);
 insert into alumnos_materias (fecha_creacion, status, usuario_creacion, alumno_id, profesor_materia_id) values ('2023-01-04 15:24:32', 1, 'rsidwell3', 'LG1234', 14);
+INSERT INTO alumnos_materias (fecha_creacion, fecha_modificacion, status, usuario_creacion, usuario_modificacion, alumno_id, profesor_materia_id) VALUES('2023-01-04 15:24:32', NULL, 1, 'rsidwell3', NULL, 'WP1193', 9);
 INSERT INTO horarios (horario_id, dia_semana, fecha_creacion, fecha_modificacion, horario, status, usuario_creacion, usuario_modificacion) VALUES(1, 1, '2023-05-08 11:03:52', NULL, '7:00-7:55', 1, 'admin1', NULL);
 INSERT INTO horarios (horario_id, dia_semana, fecha_creacion, fecha_modificacion, horario, status, usuario_creacion, usuario_modificacion) VALUES(2, 1, '2023-05-08 11:03:52', NULL, '7:55-8:50', 1, 'admin1', NULL);
 INSERT INTO horarios (horario_id, dia_semana, fecha_creacion, fecha_modificacion, horario, status, usuario_creacion, usuario_modificacion) VALUES(3, 1, '2023-05-08 11:03:52', NULL, '8:50-9:45', 1, 'admin1', NULL);

@@ -11,5 +11,6 @@ public class MateriasProfesorTablaDTO {
 
 	private String materiaId;
 	private String materiaNombre;
+	private Integer profesorMateriaId;
 	
 }

@@ -22,6 +22,7 @@ public class Constants {
 	public static final Byte DIA_SABADO=6;
 	public static final String[] CABECERA_TABLA_CLASEHORARIO= {"X","LUNES","MARTES","MIERCOLES","JUEVES","VIERNES"};
 	public static final Map<String, Integer> HORARIOS_MAP;
+	public static final Map<Byte, String> DIA_SEMANA_MAP;
 	public static Set<Integer> DIA_SEMANA_SET;
 	
 	static {
@@ -42,6 +43,8 @@ public class Constants {
         HORARIOS_MAP.put("18:55-19:50", 14);
         HORARIOS_MAP.put("19:50-20:45", 15);
         
+        
+        
         DIA_SEMANA_SET = new HashSet<>();
         DIA_SEMANA_SET.addAll(Arrays.asList(
                 Integer.valueOf(DIA_LUNES),
@@ -50,6 +53,14 @@ public class Constants {
                 Integer.valueOf(DIA_JUEVES),
                 Integer.valueOf(DIA_VIERNES)
         ));
+        
+        DIA_SEMANA_MAP=new HashMap<>();
+        DIA_SEMANA_MAP.put(DIA_LUNES, "Lunes");
+        DIA_SEMANA_MAP.put(DIA_MARTES, "Martes");
+        DIA_SEMANA_MAP.put(DIA_MIERCOLES, "Miercoles");
+        DIA_SEMANA_MAP.put(DIA_JUEVES, "Jueves");
+        DIA_SEMANA_MAP.put(DIA_VIERNES, "Viernes");
+        DIA_SEMANA_MAP.put(DIA_SABADO, "Sabado");
     }
 	
 }
