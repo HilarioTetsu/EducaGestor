@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+
+<header th:replace="layout/layout :: headerProfesor"></header>
+
+
+<body>
+
+	<div class="container d-flex flex-column mt-3">
+
+		<h1 class="" th:text="'Profesor: ' + ${profesorNombre}"></h1>
+		<h2 class="mt-2 mb-2" th:text="'Semestre : '+${semestre.semestre}"></h2>
+		<h2 class="mt-2 mb-2" th:text="'Materia : '+${materia.nombre}"></h2>
+		<div class="container d-flex flex-row">
+		<a  class="btn btn-success me-2">PENDIENTE</a>
+		<a  class="btn btn-success">PENDIENTE</a>
+		</div>
+		<h3 class="mt-3 ms-3">Horario</h3>
+		<div class="container mb-5 mt-3" sec:authorize="isAuthenticated()">
+			<table class="table table-striped table-hover table-bordered">
+				<thead>
+					<tr>
+						<th scope="col">Dia</th>
+						<th scope="col">Horario</th>
+						<th scope="col">Aula</th>
+
+					</tr>
+				</thead>
+				<tbody class="table-group-divider">
+					<tr th:if="${listHorariosMateria!=null}"
+						th:each="horario : ${listHorariosMateria}">
+
+						<td th:text="${horario.diaSemana}"></td>
+						<td th:text="${horario.horario}"></td>
+						<td th:text="${horario.aula}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+	
+		<div class="container mb-5 mt-3" sec:authorize="isAuthenticated()">
+		<h3>Alumnos</h3>
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th scope="col">No. Lista</th>
+					<th scope="col">AlumnoId</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Opciones</th>
+					
+				</tr>
+			</thead>
+			<tbody class="table-group-divider">
+				<tr th:if="${listAlumnosProfesor!=null}" th:each="alumno : ${listAlumnosProfesor}" >
+
+					<td th:text="${alumno.noLista}"></td>
+					<td th:text="${alumno.alumnoId}"></td>
+					<td th:text="${alumno.nombreCompleto}"></td>
+					<td>
+					<a  class="btn btn-success">PENDIENTE</a>
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+</body>
+
+
+
+<footer th:replace="layout/layout :: footer"></footer>
+
+
+
+
+</html>

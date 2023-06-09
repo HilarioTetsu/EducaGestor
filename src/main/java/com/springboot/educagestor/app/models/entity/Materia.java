@@ -54,7 +54,7 @@ public class Materia implements Serializable{
 	private Byte creditos;
 		
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "academia_id",referencedColumnName = "academia_id")
 	private Academia academia;
 	
@@ -64,15 +64,14 @@ public class Materia implements Serializable{
 	private String acronimo;
 	
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "planEstudios_id", referencedColumnName = "plan_estudios_id")
 	private PlanEstudios planEstudios;
 	
 	@OneToMany(mappedBy = "materia",fetch = FetchType.LAZY)
 	private List<ProfesorMateria> listProfesorMateria;
 	
-	@OneToMany(mappedBy = "materia",fetch = FetchType.LAZY)
-	private List<Clase> listClase;
+
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion")

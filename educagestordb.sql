@@ -305,3 +305,40 @@ BEGIN
     );
 END //
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE asignacionIdProfesor()
+BEGIN
+     UPDATE profesores AS a
+    SET a.profesor_id = (
+        SELECT CONCAT('PR', a.academia_id, RIGHT(YEAR(a.fecha_ingreso), 2), a.id_sec)
+        FROM personas AS b
+        WHERE a.persona_id = b.persona_id
+    );
+END //
+DELIMITER ;
+
+ UPDATE profesores AS a
+    SET a.profesor_id = (
+        SELECT CONCAT('PR', a.academia_id, RIGHT(YEAR(a.fecha_ingreso), 2), a.id_sec)
+        FROM personas AS b
+        WHERE a.persona_id = b.persona_id
+    );
+    
+    SELECT CONCAT('PR', a.academia_id, RIGHT(YEAR(a.fecha_ingreso), 2), a.id_sec)
+        FROM profesores AS a
+        INNER JOIN personas as b
+        WHERE a.persona_id = b.persona_id;
+        
+DELIMITER //
+CREATE PROCEDURE asignacionIdMateria()
+BEGIN
+    UPDATE materias AS a
+    SET a.materia_id = (
+        SELECT CONCAT(b.acronimo, '-',b.creditos, '-',b.academia_id,'-', b.id_sec)
+        FROM materias AS b
+        WHERE a.id_sec = b.id_sec
+    ) WHERE a.id_sec>=6;
+END //
+DELIMITER ;        
+    

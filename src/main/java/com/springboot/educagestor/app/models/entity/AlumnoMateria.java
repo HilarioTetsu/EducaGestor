@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,17 +45,17 @@ public class AlumnoMateria implements Serializable{
 	
 	
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="alumno_id",referencedColumnName = "alumno_id")
 	private Alumno alumno;
 	
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "profesor_materia_id")
 	private ProfesorMateria profesorMateria;
 	
 	
-	@OneToMany(mappedBy = "alumnoMateria")
+	@OneToMany(mappedBy = "alumnoMateria",fetch = FetchType.LAZY)
 	private List<Calificacion> calificacionList;
 	
 	@Temporal(TemporalType.TIMESTAMP)

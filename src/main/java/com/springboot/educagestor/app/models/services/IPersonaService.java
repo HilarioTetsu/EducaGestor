@@ -8,4 +8,10 @@ public interface IPersonaService {
 	public Persona findOne(String id);
 	
 	public Persona findByEmail(String email);
+	
+	public String getFullName(Persona persona);
+	
+	public String getCurrentUserName();
+	
+	public Persona save(Persona persona);
 }

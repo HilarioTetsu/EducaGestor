@@ -6,9 +6,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -23,7 +25,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "clases")
+@Table(name = "clases",indexes = {@Index(columnList = "horario_id, profesor_materia_id",unique = true)})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,13 +43,13 @@ public class Clase implements Serializable{
 	private Integer claseId;
 	
 	
-	@ManyToOne()
-	@JoinColumn(name = "materia_id",referencedColumnName = "materia_id")
-	private Materia materia;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "profesor_materia_id",referencedColumnName = "profesor_materia_id")
+	private ProfesorMateria profesorMateria;
 	
 	
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="horario_id",referencedColumnName = "horario_id")
 	private Horario horario;
 	

@@ -34,15 +34,20 @@ public class SpringSecurityConfig {
 	public static BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/login").permitAll()
-				.antMatchers("/alumno/**").hasAnyRole("ALUMNO").antMatchers("/admin/**").hasAnyRole("ADMIN")
+				.antMatchers("/alumno/**").hasAnyRole("ALUMNO")
+				.antMatchers("/admin/**").hasAnyRole("ADMIN")
+				.antMatchers("/profesor/**").hasAnyRole("PROFESOR")
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
 				.permitAll().and().exceptionHandling().accessDeniedPage("/error_403");
 
+		
 		return http.build();
 	}
 

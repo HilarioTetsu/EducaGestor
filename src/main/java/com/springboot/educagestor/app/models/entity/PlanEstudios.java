@@ -52,7 +52,7 @@ public class PlanEstudios implements Serializable{
 	private String descripcion;
 	
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="carrera_id")
 	private Carrera carrera;
 	

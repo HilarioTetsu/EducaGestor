@@ -1,6 +1,8 @@
 package com.springboot.educagestor.app.models.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,33 @@ public class PersonaServiceImpl implements IPersonaService{
 	public Persona findByEmail(String email) {
 		// TODO Auto-generated method stub
 		return personaDao.findByEmail(email);
+	}
+
+	@Override
+	public String getFullName(Persona persona) {
+		
+		StringBuffer sb=new StringBuffer();
+		
+		sb.append(persona.getNombre());
+		sb.append(" ");
+		sb.append(persona.getApellidoPaterno());
+		sb.append(" ");
+		sb.append(persona.getApellidoMaterno());
+		
+		return sb.toString();
+	}
+
+	@Override
+	public String getCurrentUserName() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return authentication.getName();
+	}
+
+	@Override
+	@Transactional
+	public Persona save(Persona persona) {
+		
+		return personaDao.save(persona);
 	}
 
 }
