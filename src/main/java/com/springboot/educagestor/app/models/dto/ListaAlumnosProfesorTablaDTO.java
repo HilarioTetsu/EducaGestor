@@ -1,11 +1,13 @@
 package com.springboot.educagestor.app.models.dto;
 
+import java.util.List;
+
 public class ListaAlumnosProfesorTablaDTO {
 
 	private Integer noLista;
 	private String alumnoId;
 	private String nombreCompleto;
-	
+	private List<CalificacionDTO> calificaciones;
 	
 	public ListaAlumnosProfesorTablaDTO(String alumnoId, String nombreCompleto) {	
 		this.alumnoId = alumnoId;
@@ -14,6 +16,17 @@ public class ListaAlumnosProfesorTablaDTO {
 
 
 	public ListaAlumnosProfesorTablaDTO() {		
+	}
+
+
+	
+	public List<CalificacionDTO> getCalificaciones() {
+		return calificaciones;
+	}
+
+
+	public void setCalificaciones(List<CalificacionDTO> calificaciones) {
+		this.calificaciones = calificaciones;
 	}
 
 

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,6 +25,7 @@ import com.springboot.educagestor.app.models.dto.MateriasProfesorTablaDTO;
 import com.springboot.educagestor.app.models.entity.Materia;
 import com.springboot.educagestor.app.models.entity.Profesor;
 import com.springboot.educagestor.app.models.entity.SemestreNombre;
+import com.springboot.educagestor.app.models.services.ICalificacionService;
 import com.springboot.educagestor.app.models.services.IClaseService;
 import com.springboot.educagestor.app.models.services.IMateriaService;
 import com.springboot.educagestor.app.models.services.IPersonaService;
@@ -49,6 +51,9 @@ public class ProfesorController {
 	
 	@Autowired
 	private IClaseService claseService;
+	
+	@Autowired
+	private ICalificacionService califService;
 	
 	@GetMapping("/profesor")
 	public String indexProfesor(@RequestParam(name ="Id", required = false) String profesorId
@@ -134,7 +139,6 @@ public class ProfesorController {
 			@RequestParam(name = "Id") String profesorMateriaId,
 			Model model) {
 		
-		int noLista=1;
 		
 		Profesor profesor =new Profesor();
 		Materia materia=new Materia();		
@@ -154,8 +158,41 @@ public class ProfesorController {
 		model.addAttribute("semestre", semestre);
 		model.addAttribute("listAlumnosProfesor", listAlumnosProfesor);
 		model.addAttribute("listHorariosMateria", listHorariosMateria);
-		
+		model.addAttribute("pmId", profesorMateriaId);
 		return "profesorAlumnos";
+	}
+	
+	
+	@GetMapping("/profesor/calificaciones/{materiaId}")
+	public String profesorCalificaciones(@PathVariable("materiaId") String materiaId,
+			@RequestParam("semestre") String acronimo,
+			@RequestParam("Id") String profesorMateriaId,
+			Model model) {
+		
+
+		Profesor profesor =new Profesor();
+		Materia materia=new Materia();		
+		SemestreNombre semestre=new SemestreNombre();
+		
+		profesor=personaService.findByEmail(personaService.getCurrentUserName()).getProfesor();
+		materia=materiaService.findByMateriaId(materiaId);
+		semestre=semestreService.findByAcronimo(acronimo);
+		
+		List<String> listUnidades=materiaService.getListUnidades(materia.getUnidades());
+		
+		List<ListaAlumnosProfesorTablaDTO> listAlumnosProfesor=profesorService.findAlumnosByProfesorIdAndMateriaIdAndSemestreAndProfesorMateriaId(profesor.getProfesorId(), materiaId, acronimo, Integer.parseInt(profesorMateriaId));
+		
+		for (ListaAlumnosProfesorTablaDTO alumno : listAlumnosProfesor) {
+			alumno.setCalificaciones(califService.findCalificacionesByAcronimoSemestreAndAlumnoIdAndMateriaId(acronimo, alumno.getAlumnoId(), materiaId));
+		}
+		
+		model.addAttribute("profesorNombre", personaService.getFullName(profesor.getPersona()));
+		model.addAttribute("materia", materia);
+		model.addAttribute("semestre", semestre);
+		model.addAttribute("listAlumnosProfesor", listAlumnosProfesor);
+		model.addAttribute("listUnidades", listUnidades);
+		
+		return "profesorCalificaciones";
 	}
 	
 }

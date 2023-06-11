@@ -52,6 +52,10 @@ public class Materia implements Serializable{
 	
 	@NotNull
 	private Byte creditos;
+	
+	
+	@Column(nullable = true)
+	private Byte unidades;
 		
 	
 	@ManyToOne(fetch = FetchType.LAZY)

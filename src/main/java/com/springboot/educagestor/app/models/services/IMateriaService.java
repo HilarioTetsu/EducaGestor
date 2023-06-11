@@ -12,4 +12,6 @@ public interface IMateriaService {
 	
 	public List<String> findMateriaNombresBySemestreAcronimoAndAlumnoId(String acronimo,String alumnoId);
 	
+	public List<String> getListUnidades(Byte unidades);
+	
 }
