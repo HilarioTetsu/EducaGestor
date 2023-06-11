@@ -17,16 +17,29 @@ public class MateriaServiceImpl implements IMateriaService {
 	private IMateriaDao materiaDao;
 	
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Materia findByMateriaId(String materiaId) {
 		// TODO Auto-generated method stub
 		return materiaDao.findByMateriaId(materiaId).orElse(null);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<String> findMateriaNombresBySemestreAcronimoAndAlumnoId(String acronimo, String alumnoId) {
 		List<String> listResult =new ArrayList<>();
 		listResult=materiaDao.findMateriaNombresBySemestreAcronimoAndAlumnoId(acronimo, alumnoId);
+		
+		return listResult;
+	}
+
+	@Override
+	public List<String> getListUnidades(Byte unidades) {
+		
+		List<String> listResult=new ArrayList<>();
+		
+		for (Byte i = 1; i <= unidades; i++) {
+			listResult.add("Unidad ".concat(i.toString()));
+		}
 		
 		return listResult;
 	}
