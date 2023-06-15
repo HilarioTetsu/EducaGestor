@@ -266,6 +266,8 @@ public class AlumnoController {
 		 
 		 String alumnoNombre=personaService.getFullName(alumno.getPersona());
 		 
+		 listCalif.sort(Comparator.comparing(CalificacionDTO::getUnidadNum));
+		 
 		 model.addAttribute("listCalificaciones", listCalif);
 		 model.addAttribute("semestre", semestreService.findByAcronimo(semestre).getSemestre());
 		 model.addAttribute("nombreAlumno", alumnoNombre);

@@ -12,7 +12,9 @@
 	crossorigin="anonymous">
 </head>
 
-<header class="p-3 text-bg-dark" th:fragment="header">
+
+
+<header class="p-3 text-bg-dark" th:fragment="headerProfesor">
 	<div class="container">
 		<div
 			class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -24,10 +26,12 @@
 			<ul
 				class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 				<li><a th:href="@{/}" class="nav-link px-2 text-white">Home</a></li>
-				<li><a th:href="@{/alumno/calificaciones}"
+				<li><a th:href="@{/profesor/calificaciones}"
 					class="nav-link px-2 text-white">Calificaciones</a></li>
-				<li><a th:href="@{/alumno/perfil/}+${alumnoId}"
+				<li><a th:href="@{/profesor/perfil}"
 					class="nav-link px-2 text-white">Perfil</a></li>
+				<li><a th:href="@{/profesor/asistencias}"
+					class="nav-link px-2 text-white">Asistencias</a></li>
 			</ul>
 
 
@@ -49,8 +53,6 @@
 		</div>
 	</div>
 </header>
-
-
 
 
 <body>

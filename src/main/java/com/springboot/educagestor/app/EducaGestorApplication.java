@@ -102,9 +102,9 @@ public class EducaGestorApplication implements CommandLineRunner{
 		
 		System.out.println(listDto);*/
 		
-		List<ClaseHorariosProfesorMateriasDTO> listHorariosMateria=claseService.findClaseHorarioProfesorMateriaByProfesorMateriaId(11);
+		/*List<ClaseHorariosProfesorMateriasDTO> listHorariosMateria=claseService.findClaseHorarioProfesorMateriaByProfesorMateriaId(11);
 		
-		System.out.println(listHorariosMateria);
+		System.out.println(listHorariosMateria);*/
 		
 	}
 
