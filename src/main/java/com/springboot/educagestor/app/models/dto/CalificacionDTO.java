@@ -4,15 +4,24 @@ public class CalificacionDTO {
 
 	private String unidad;
 	private Byte calificacion;
+	private Byte unidadNum;
 	
 	
 	public CalificacionDTO(String unidad, Byte calificacion) {		
 		this.unidad = unidad;
 		this.calificacion = calificacion;
+		this.unidadNum=Byte.parseByte(unidad);
 	}
 
 
 	public CalificacionDTO() {
+	}
+
+
+	
+	public CalificacionDTO(String unidad) {
+		this.unidad = unidad;
+		this.unidadNum=Byte.parseByte(unidad);
 	}
 
 
@@ -35,12 +44,25 @@ public class CalificacionDTO {
 		this.calificacion = calificacion;
 	}
 
+	
+	public Byte getUnidadNum() {
+		return unidadNum;
+	}
+
+
+	public void setUnidadNum(Byte unidadNum) {
+		this.unidadNum = unidadNum;
+	}
+
 
 	@Override
 	public String toString() {
-		return "CalificacionDTO [unidad=" + unidad + ", calificacion=" + calificacion + "]";
+		return "CalificacionDTO [unidad=" + unidad + ", calificacion=" + calificacion + ", unidadNum=" + unidadNum
+				+ "]";
 	}
-	
+
+
+
 	
 	
 	
