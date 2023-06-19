@@ -99,4 +99,13 @@ public class AlumnoServiceImpl implements IAlumnoService {
 		return alumno;
 	}
 
+
+
+
+	@Override
+	public void guardarAlumno(Alumno alumno) {
+		
+		alumnoDao.save(alumno);
+	}
+
 }

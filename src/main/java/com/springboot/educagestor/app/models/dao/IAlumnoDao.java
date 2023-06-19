@@ -19,6 +19,8 @@ public interface IAlumnoDao extends JpaRepository<Alumno, String>{
 	
 	public Boolean existsByAlumnoId(String alumnoId);
 	
+	
+	
 	@Query("SELECT NEW com.springboot.educagestor.app.models.dto.PerfilAlumnoDTO(CONCAT(p.apellidoPaterno,' ',p.apellidoMaterno,' ',p.nombre),a.alumnoId,c.descripcion,pe.nombre,a.generacion,p.email,p.direccion,p.codigoPostal,p.telefono) "
 			+ "FROM Alumno a JOIN a.persona p "
 			+ "JOIN a.carrera c "
