@@ -1,4 +1,4 @@
-El siguiente texto es una reescritura del texto original en formato markdown, con algunos cambios para mejorar la claridad y la coherencia.
+
 
 # EducaGestor
 EducaGestor es un sistema de gestión académica para universidades, que permite a los alumnos y profesores acceder a diferentes funcionalidades según su rol. 
